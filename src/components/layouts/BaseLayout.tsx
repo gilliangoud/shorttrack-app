@@ -9,9 +9,11 @@ import BreadcrumbItem from "../BreadcrumbItem";
 import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { type Database } from "src/types/database.types";
 
-const user = {
-  name: "Tom Cook",
+const profile = {
+  name: "Profile name",
   email: "tom@example.com",
   imageUrl:
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
@@ -20,13 +22,11 @@ const navigation = [
   { name: "Schedule", href: "/schedule" },
   { name: "profile", href: "/profile" },
   { name: "login", href: "/login" },
-  { name: "t3", href: "/t3" },
   { name: "page", href: "/page" },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Your Profile", href: "/profile" },
+  { name: "Settings", href: "/settings" },
 ];
 
 function classNames(...classes: string[]) {
@@ -34,9 +34,13 @@ function classNames(...classes: string[]) {
 }
 
 const BaseLayout = ({ children }: { children: ReactElement }) => {
+  const supabaseClient = useSupabaseClient<Database>();
+  const user = useUser();
+
   const router = useRouter();
   const pathname = usePathname();
-  const [breadcrumbs, setBreadcrumbs] = useState<{ href: string; isCurrent: boolean; label: string }[]>();
+  const [breadcrumbs, setBreadcrumbs] =
+    useState<{ href: string; isCurrent: boolean; label: string }[]>();
 
   useEffect(() => {
     const pathWithoutQuery = router.asPath.split("?")[0] || "/";
@@ -68,11 +72,11 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <Link href="/">
-                      <Image
-                        className="h-8 w-8"
-                        src={LogoImage}
-                        alt="Goud IT"
-                      />
+                        <Image
+                          className="h-8 w-8"
+                          src={LogoImage}
+                          alt="Goud IT"
+                        />
                       </Link>
                     </div>
                     <div className="hidden md:block">
@@ -87,7 +91,9 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
                                 : "text-gray-300 hover:bg-gray-700 hover:text-white",
                               "rounded-md px-3 py-2 text-sm font-medium"
                             )}
-                            aria-current={pathname === item.href ? "page" : undefined}
+                            aria-current={
+                              pathname === item.href ? "page" : undefined
+                            }
                           >
                             {item.name}
                           </Link>
@@ -97,27 +103,38 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <button
-                        type="button"
-                        className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                      >
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
+                      {user ? (
+                        <button
+                          type="button"
+                          className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        >
+                          <span className="sr-only">View notifications</span>
+                          <BellIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                      ) : null}
 
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
-                          <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                            <span className="sr-only">Open user menu</span>
-                            <Image
-                              className="h-8 w-8 rounded-full"
-                              width={256}
-                              height={256}
-                              src={user.imageUrl}
-                              alt=""
-                            />
-                          </Menu.Button>
+                          {user ? (
+                            <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                              <span className="sr-only">Open user menu</span>
+                              <Image
+                                className="h-8 w-8 rounded-full"
+                                width={256}
+                                height={256}
+                                src={profile.imageUrl}
+                                alt=""
+                              />
+                            </Menu.Button>
+                          ) : (
+                            <Link
+                              href={"/login"}
+                              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            >
+                              Sign in
+                            </Link>
+                          )}
                         </div>
                         <Transition
                           as={Fragment}
@@ -144,6 +161,19 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
                                 )}
                               </Menu.Item>
                             ))}
+                            <Menu.Item key={"logout"}>
+                              <Link
+                                href={""}
+                                onClick={() => {
+                                  supabaseClient.auth.signOut();
+                                }}
+                                className={
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                }
+                              >
+                                Sign out
+                              </Link>
+                            </Menu.Item>
                           </Menu.Items>
                         </Transition>
                       </Menu>
@@ -173,8 +203,8 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
                 <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
+                      as={Link}
                       key={item.name}
-                      as="a"
                       href={item.href}
                       className={classNames(
                         pathname === item.href
@@ -188,44 +218,72 @@ const BaseLayout = ({ children }: { children: ReactElement }) => {
                     </Disclosure.Button>
                   ))}
                 </div>
-                <div className="border-t border-gray-700 pt-4 pb-3">
-                  <div className="flex items-center px-5">
-                    <div className="flex-shrink-0">
-                      <Image
-                        className="h-10 w-10 rounded-full"
-                        src={user.imageUrl}
-                        alt=""
-                      />
-                    </div>
-                    <div className="ml-3">
-                      <div className="text-base font-medium text-white">
-                        {user.name}
+                {user ? (
+                  <div className="border-t border-gray-700 pt-4 pb-3">
+                    <div className="flex items-center px-5">
+                      <div className="flex-shrink-0">
+                        <Image
+                          className="h-10 w-10 rounded-full"
+                          src={profile.imageUrl}
+                          width={256}
+                          height={256}
+                          alt=""
+                        />
                       </div>
-                      <div className="text-sm font-medium text-gray-400">
-                        {user.email}
+                      <div className="ml-3">
+                        <div className="text-base font-medium text-white">
+                          {profile.name}
+                        </div>
+                        <div className="text-sm font-medium text-gray-400">
+                          {user.email}
+                        </div>
                       </div>
+                      <button
+                        type="button"
+                        className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      >
+                        <span className="sr-only">View notifications</span>
+                        <BellIcon className="h-6 w-6" aria-hidden="true" />
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div>
-                  <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
+                    <div className="mt-3 space-y-1 px-2">
+                      {userNavigation.map((item) => (
+                        <Disclosure.Button
+                          as={Link}
+                          key={item.name}
+                          href={item.href}
+                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                        >
+                          {item.name}
+                        </Disclosure.Button>
+                      ))}
                       <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
+                        as={Link}
+                        href={""}
+                        key={"logout"}
+                        onClick={() => {
+                          supabaseClient.auth.signOut();
+                        }}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
-                        {item.name}
+                        Sign out
                       </Disclosure.Button>
-                    ))}
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="border-t border-gray-700 pt-4 pb-3">
+                    <div className="mt-3 space-y-1 px-2">
+                        <Disclosure.Button
+                          as={Link}
+                          key={"login"}
+                          href={"/login"}
+                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                        >
+                          Sign in
+                        </Disclosure.Button>
+                    </div>
+                  </div>
+                )}
               </Disclosure.Panel>
             </>
           )}
