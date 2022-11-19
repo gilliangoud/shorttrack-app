@@ -13,6 +13,7 @@
     "@prisma/client": "^4.5.0",
     "@supabase/auth-helpers-nextjs": "^0.5.2",
     "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/auth-ui-react": "^0.2.6",
     "@supabase/supabase-js": "^2.1.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tanstack/react-query": "^4.10.0",
