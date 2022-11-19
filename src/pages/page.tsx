@@ -3,7 +3,7 @@ import BaseLayout from '../components/layouts/BaseLayout'
 import { type NextPageWithLayout } from '../types/nextpage.types'
 
 const Page: NextPageWithLayout = () => {
-  return <p>index</p>
+  return <p>hello world</p>
 }
 
 Page.getLayout = function getLayout(page: ReactElement) {

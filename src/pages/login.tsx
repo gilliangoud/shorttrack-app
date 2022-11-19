@@ -1,9 +1,12 @@
+import type { ReactElement } from 'react'
+import BaseLayout from '../components/layouts/BaseLayout'
+import { type NextPageWithLayout } from '../types/nextpage.types'
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react'
 import { type Database } from '../types/database.types'
 
-const LoginPage = () => {
+const Page: NextPageWithLayout = () => {
   const supabaseClient = useSupabaseClient<Database>()
   const user = useUser()
   const [data, setData] = useState<unknown>()
@@ -37,4 +40,12 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+Page.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <BaseLayout>
+      <div>{page}</div>
+    </BaseLayout>
+  )
+}
+
+export default Page

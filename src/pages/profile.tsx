@@ -1,7 +1,12 @@
 import { type User, createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { type GetServerSidePropsContext } from 'next'
+import type { ReactElement } from 'react'
+import BaseLayout from '../components/layouts/BaseLayout'
+import { type NextPageWithLayout } from '../types/nextpage.types'
 
-export default function ProtectedPage({ user, data }: { user: User; data: any }) {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Page: NextPageWithLayout<{ user: User; data: any }> = ({ user, data }) => {
   return (
     <>
       <div>Protected content for {user.email}</div>
@@ -38,3 +43,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     },
   }
 }
+
+Page.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <BaseLayout>
+      <div>{page}</div>
+    </BaseLayout>
+  )
+}
+
+export default Page

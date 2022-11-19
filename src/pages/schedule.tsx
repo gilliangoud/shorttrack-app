@@ -2,11 +2,11 @@ import type { ReactElement } from 'react'
 import BaseLayout from '../components/layouts/BaseLayout'
 import { type NextPageWithLayout } from '../types/nextpage.types'
 
-const Page: NextPageWithLayout = () => {
-  return <p>index</p>
+const Schedule: NextPageWithLayout = () => {
+  return <p>hello world</p>
 }
 
-Page.getLayout = function getLayout(page: ReactElement) {
+Schedule.getLayout = function getLayout(page: ReactElement) {
   return (
     <BaseLayout>
       <div>{page}</div>
@@ -14,4 +14,4 @@ Page.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export default Page
+export default Schedule
