@@ -2,9 +2,7 @@
   "name": "shorttrack-app",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "genSupabaseTypes": "npx supabase gen types typescript --project-id 'wuhnbxqejdishfovgtze' --schema public > supabase.ts"
-  },
+  "scripts": {},
   "private": true,
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
@@ -22,8 +20,9 @@
     "@svgr/webpack": "^6.1.2",
     "@testing-library/react": "13.4.0",
     "@types/express": "4.17.13",
+    "@types/inquirer": "^9.0.3",
     "@types/jest": "28.1.1",
-    "@types/node": "18.11.9",
+    "@types/node": "^18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
@@ -52,6 +51,7 @@
     "@supabase/supabase-js": "^2.5.0",
     "axios": "^1.0.0",
     "express": "^4.18.1",
+    "inquirer": "^9.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "^2.3.0"

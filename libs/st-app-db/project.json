@@ -24,6 +24,72 @@
           "codeCoverage": true
         }
       }
+    },
+    "start": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "supabase start"
+        ],
+        "cwd": "libs/st-app-db"
+      }
+    },
+    "generate-supabase-types":{
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "npx supabase gen types typescript --project-id 'wuhnbxqejdishfovgtze' --schema public > src/lib/types.ts"
+        ],
+        "parallel": false,
+        "cwd": "libs/st-app-db"
+      }
+    },
+    "stop": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "supabase stop"
+        ],
+        "cwd": "libs/st-app-db"
+      }
+    },
+    "create-local-snapshot": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node libs/pokemon-db/src/create-snapshot-of-local.ts -P libs/database-instance/aeons-world/tsconfig.json"
+        ],
+        "parallel": false
+      }
+    },
+    "create-prod-snapshot": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node libs/pokemon-db/src/create-snapshot-of-prod.ts -P libs/database-instance/aeons-world/tsconfig.json"
+        ],
+        "parallel": false
+      }
+    },
+    "restore-snapshot-to-local-db": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "npx ts-node libs/pokemon-db/src/restore-snapshot.ts -P libs/pokemon-db/tsconfig.json"
+        ],
+        "parallel": false,
+        "__unparsed__": []
+      }
+    },
+    "clear-local-db-data": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "PGPASSWORD=postgres psql -U postgres -h 127.0.0.1 -p 54322 -f libs/pokemon-db/supabase/clear-db.sql"
+        ],
+        "parallel": false,
+        "__unparsed__": []
+      }
     }
   },
   "tags": []

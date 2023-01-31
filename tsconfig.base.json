@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@shorttrack-app/st-app-db": ["libs/st-app-db/src/index.ts"]
+      "@shorttrack-app/st-app-db": ["libs/st-app-db/src/index.ts"],
+      "@shorttrack-app/supabase-client": ["libs/supabase-client/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

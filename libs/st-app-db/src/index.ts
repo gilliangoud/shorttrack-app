@@ -1,1 +1,1 @@
-export * from './lib/st-app-db';
+export * from './lib/types';
