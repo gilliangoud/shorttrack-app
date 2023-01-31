@@ -1,5 +1,6 @@
-import { createSupabaseClient } from '@shorttrack-app/supabase-client';
-const supabase = createSupabaseClient();
+import { createClient } from '@supabase/supabase-js';
+import { Database } from '@shorttrack-app/st-app-db';
+const supabase = createClient<Database>(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 const sub = supabase.channel('public:mylaps').on(
   'postgres_changes',
