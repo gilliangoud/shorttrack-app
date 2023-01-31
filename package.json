@@ -2,7 +2,9 @@
   "name": "shorttrack-app",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "genSupabaseTypes": "npx supabase gen types typescript --project-id 'wuhnbxqejdishfovgtze' --schema public > supabase.ts"
+  },
   "private": true,
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
