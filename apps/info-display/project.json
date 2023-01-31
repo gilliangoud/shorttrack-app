@@ -21,7 +21,8 @@
         ],
         "styles": ["apps/info-display/src/styles.css"],
         "scripts": [],
-        "webpackConfig": "apps/info-display/webpack.config.js"
+        "webpackConfig": "apps/info-display/webpack.config.js",
+        "postcssConfig": "apps/info-display/postcss.config.js"
       },
       "configurations": {
         "development": {
