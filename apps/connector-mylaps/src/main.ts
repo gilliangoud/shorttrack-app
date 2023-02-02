@@ -63,19 +63,19 @@ const sub = supabase
       const race = payload.new as Race;
       if (race.armed === true) {
         // check if race is in readyRaces map and add if not
-        if ((payload.old as Race).armed === false){
-          console.log(`Race ${race.id} was armed`)
+        if ((payload.old as Race).armed === false) {
+          console.log(`Race ${race.id} was armed`);
         }
         readyRaces.set(race.id, race);
         fetchLanes(race.id);
       } else {
         //check if race is in readyRaces map and remove if so
-        const oldRace = payload.old as Race
-        if (oldRace.armed === true){
-          console.log(`Race ${oldRace.id} stopped capturing`)
+        const oldRace = payload.old as Race;
+        if (oldRace.armed === true) {
+          console.log(`Race ${oldRace.id} stopped capturing`);
         }
         readyRaces.has(oldRace.id) ? readyRaces.delete(oldRace.id) : null;
-        lanesByRace.delete(oldRace.id)
+        lanesByRace.delete(oldRace.id);
       }
     }
   )
@@ -132,13 +132,16 @@ const sub = supabase
           }
           const passingsToNow = laneInRace?.passings;
           if (passingsToNow.length >= passingsNeeded) {
-            console.log(`Lane ${lane} has enough passings already `, passing.tran_code);
+            console.log(
+              `Lane ${lane} has enough passings already `,
+              passing.tran_code
+            );
             return;
           }
 
           // and passing is far enough after the previous passing (5 seconds) add to lane
           if (passingsToNow.length == 0) {
-            console.log(`Lane ${lane} passed first time `, passing.tran_code)
+            console.log(`Lane ${lane} passed first time `, passing.tran_code);
             addPassingToLane(race.id, lane, passing.time);
           } else {
             const lastPassing = passingsToNow.at(-1);
@@ -146,7 +149,12 @@ const sub = supabase
               new Date(passing.time).getTime() -
               new Date(lastPassing).getTime();
             if (timeSinceLastPassing < 5000) {
-              console.log(`Lane ${lane} passed too soon `, passing.tran_code, timeSinceLastPassing, `ms`);
+              console.log(
+                `Lane ${lane} passed too soon `,
+                passing.tran_code,
+                timeSinceLastPassing,
+                `ms`
+              );
               return;
             } else {
               addPassingToLane(race.id, lane, passing.time);
@@ -166,7 +174,10 @@ const sub = supabase
               if (x.time < finishTime) return acc + 1;
               return acc;
             }, 1);
-            finish(race.id, lane, finishPosition, finishTime);
+            finish(race.id, lane, finishTime);
+            console.log(
+              `Race ${race.id} lane ${lane} finished ${finishPosition} in ${finishTime}`
+            );
           }
         });
       }
@@ -293,7 +304,7 @@ const addPassingToLane = async (
       .select();
 
     if (data) {
-      console.log(`lane ${laneId} in race ${raceId} passed at ${passing}`)
+      console.log(`lane ${laneId} in race ${raceId} passed at ${passing}`);
     }
 
     if (error && status !== 406) {
@@ -304,17 +315,11 @@ const addPassingToLane = async (
   }
 };
 
-const finish = async (
-  raceId: number,
-  laneId: number,
-  finish_position: number,
-  time: string
-) => {
+const finish = async (raceId: number, laneId: number, time: string) => {
   try {
     const { data, error, status } = await supabase
       .from('lanes')
       .update({
-        finish_position,
         time,
       })
       .eq('id', laneId)
@@ -322,7 +327,10 @@ const finish = async (
       .select();
 
     if (data) {
-      console.log(`Race ${raceId} lane ${laneId} finished ${finish_position} in ${time}`)
+      console.log(
+        `succesfully set finish for race ${raceId} lane ${laneId} to ${time}`
+      );
+      reCalculateFinishPositions(raceId);
     }
 
     if (error && status !== 406) {
@@ -336,9 +344,46 @@ const finish = async (
 const millisToTimeString = (millis: number): string => {
   Math.abs(millis);
   const minutes = Math.floor(millis / 60000);
-  const seconds = ((millis % 60000) / 1000).toFixed(0);
+  let seconds = ((millis % 60000) / 1000).toFixed(0);
+  if (Number(seconds) < 10) seconds = '0' + seconds;
   const milliseconds = ((millis % 60000) % 1000).toFixed(0);
   return `${minutes}:${seconds}.${milliseconds}`;
+};
+
+const reCalculateFinishPositions = async (raceId: number) => {
+  const { data, error } = await supabase
+    .from('lanes')
+    .select('*')
+    .eq('raceId', raceId)
+    .not('time', 'is', null)
+    .not('time', 'eq', '')
+    .order('id', { ascending: true });
+  if (data) {
+    // calculate finish positions based on finish time
+    data.map(async (x) => {
+        const finish_position =
+          data.filter((y) => y.time < x.time).length + 1;
+        try {
+          const { data, error, status } = await supabase
+            .from('lanes')
+            .update({
+              finish_position,
+            })
+            .eq('id', x.id)
+            .eq('raceId', raceId);
+
+          if (error && status !== 406) {
+            throw error;
+          }
+        } catch (error: any) {
+          alert(error.message);
+        }
+    });
+    console.log('Recalculated finish positions', raceId);
+  }
+  if (error) {
+    console.log('error', error);
+  }
 };
 
 fetchRaces();

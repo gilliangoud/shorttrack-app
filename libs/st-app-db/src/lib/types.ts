@@ -11,6 +11,7 @@ export interface Database {
     Tables: {
       competitions: {
         Row: {
+          active: boolean
           created_at: string
           host: string | null
           id: number
@@ -23,6 +24,7 @@ export interface Database {
           updated_at: string | null
         }
         Insert: {
+          active?: boolean
           created_at?: string
           host?: string | null
           id?: number
@@ -35,6 +37,7 @@ export interface Database {
           updated_at?: string | null
         }
         Update: {
+          active?: boolean
           created_at?: string
           host?: string | null
           id?: number
@@ -94,7 +97,7 @@ export interface Database {
           created_at: string
           finish_position: number | null
           id: number
-          passings: string[] | null
+          passings: string[]
           raceId: number
           resultsRef: number
           time: string | null
@@ -105,7 +108,7 @@ export interface Database {
           created_at?: string
           finish_position?: number | null
           id?: number
-          passings?: string[] | null
+          passings?: string[]
           raceId: number
           resultsRef?: number
           time?: string | null
@@ -116,7 +119,7 @@ export interface Database {
           created_at?: string
           finish_position?: number | null
           id?: number
-          passings?: string[] | null
+          passings?: string[]
           raceId?: number
           resultsRef?: number
           time?: string | null
@@ -204,7 +207,7 @@ export interface Database {
           armed: boolean
           competition: number
           created_at: string
-          distance: number | null
+          distance: number
           id: number
           name: string | null
           start_id: number | null
@@ -215,7 +218,7 @@ export interface Database {
           armed?: boolean
           competition: number
           created_at?: string
-          distance?: number | null
+          distance?: number
           id?: number
           name?: string | null
           start_id?: number | null
@@ -226,7 +229,7 @@ export interface Database {
           armed?: boolean
           competition?: number
           created_at?: string
-          distance?: number | null
+          distance?: number
           id?: number
           name?: string | null
           start_id?: number | null
