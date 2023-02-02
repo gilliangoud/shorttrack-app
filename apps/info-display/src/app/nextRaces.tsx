@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect } from 'react';
+import autoAnimate from '@formkit/auto-animate';
 import { Competitor, Lane, Race } from './app';
 import { TimeSince } from './timeSince';
 
@@ -8,8 +10,17 @@ type Props = {
 };
 
 export default function RacesList(props: Props) {
+  const parent = useRef(null);
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
+
   return (
-    <ul className={`divide-y divide-gray-300 h-full overflow-y-auto xl:overflow-y-hidden`}>
+    <ul
+      ref={parent}
+      className={`divide-y divide-gray-300 h-full overflow-y-auto xl:overflow-y-hidden`}
+    >
       {props.races.length > 0 ? (
         props.races.map((race) => (
           <li key={race.id} className="">

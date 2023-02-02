@@ -1,3 +1,6 @@
+import { useState, useRef, useEffect } from 'react'
+import autoAnimate from '@formkit/auto-animate'
+
 import { Competitor, Lane, Race, Start } from './app';
 import { TimeSince } from './timeSince';
 import TimeSinceRolling from './timeSinceRolling';
@@ -10,6 +13,12 @@ type Props = {
 };
 
 export default function RacesList(props: Props) {
+  const parent = useRef(null)
+
+  useEffect(() => {
+    parent.current && autoAnimate(parent.current)
+  }, [parent])
+
   const lapsToGo = (
     passings: string[],
     distance: number,
@@ -29,6 +38,7 @@ export default function RacesList(props: Props) {
 
   return (
     <ul
+      ref={parent}
       className={`divide-y divide-gray-200 h-full overflow-y-auto xl:overflow-y-hidden`}
     >
       {props.races.length > 0 ? (
