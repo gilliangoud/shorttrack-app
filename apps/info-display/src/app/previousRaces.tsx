@@ -24,11 +24,13 @@ export default function RacesList(props: Props) {
     const minutes = Math.floor(millis / 60000);
     const seconds = ((millis % 60000) / 1000).toFixed(0);
     const milliseconds = ((millis % 60000) % 1000).toFixed(0);
-    return `${minutes > 0 ? minutes + ':': ''}${seconds}.${milliseconds}`;
+    return `${minutes > 0 ? minutes + ':' : ''}${seconds}.${milliseconds}`;
   };
 
   return (
-    <ul className={`divide-y divide-gray-200 h-full`}>
+    <ul
+      className={`divide-y divide-gray-200 h-full overflow-y-auto xl:overflow-y-hidden`}
+    >
       {props.races.length > 0 ? (
         props.races.map((race) => (
           <li key={race.id} className="">
@@ -36,20 +38,26 @@ export default function RacesList(props: Props) {
               <p className="">
                 {race.name} - {race.distance}M({race.track})
               </p>
-              { race.armed && race.start_id? <TimeSinceRolling
-                date={
+              {race.armed && race.start_id ? (
+                <TimeSinceRolling
+                  date={
                     props.starts.find((x) => x.id === race.start_id)?.time || ''
-                }
-                text="Started:"
-                className='w-40'
-              />: ''}
-              { race.start_id && !race.armed ? 'Finished' : ''}
-              { !race.start_id && race.armed ? <p>Waiting on start</p> : ''}
-              <TimeSince
-                date={new Date(race.updated_at)}
-                text="Last updated:"
-                timeStyle="exact"
-              />
+                  }
+                  text="Started:"
+                  className="w-40"
+                />
+              ) : (
+                ''
+              )}
+              {race.start_id && !race.armed ? 'Finished' : ''}
+              {!race.start_id && race.armed ? <p>Waiting on start</p> : ''}
+              <p className="hidden sm:block">
+                <TimeSince
+                  date={new Date(race.updated_at)}
+                  text="Last updated:"
+                  timeStyle="exact"
+                />
+              </p>
             </div>
             <table className="min-w-full divide-y divide-gray-300">
               <thead className="bg-gray-50">
@@ -68,6 +76,12 @@ export default function RacesList(props: Props) {
                   </th>
                   <th
                     scope="col"
+                    className="py-1 text-left text-xs font-semibold text-gray-500 hidden lg:block"
+                  >
+                    Last lap
+                  </th>
+                  <th
+                    scope="col"
                     className="py-1 text-left text-xs font-semibold text-gray-500"
                   >
                     Time
@@ -80,7 +94,7 @@ export default function RacesList(props: Props) {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
+              <tbody className="divide-y divide-gray-200 bg-white ">
                 {props.lanes !== undefined ? (
                   props.lanes
                     .filter((x) => x.raceId === race.id)
@@ -120,17 +134,33 @@ export default function RacesList(props: Props) {
                           }
                           {/* Add the competitors name here later with their helmet number */}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800 flex">
-                          {lane.passings.length > 0 ? lane.passings.map((passing) => {
-                            // calculate time since last passing or from start for first passing
-                            const index = lane.passings.indexOf(passing);
-                            if (index > 0) {
-                              return ('(' + millisToLapTime(Date.parse(passing) - Date.parse(lane.passings[index - 1])) + ')')
-                            }
-                            return ('(' + millisToLapTime(Date.parse(passing) - Date.parse(props.starts.find((x) => x.id === race.start_id)?.time || '')) + ')')
-                            }
-                          ): null}
-                          <p>{lane.time ? ': ' + lane.time: null}</p>
+                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800 lg:flex hidden">
+                          {/* only display the latest laptime */}
+                          {lane.passings.length > 1
+                            ? lane.passings.map((passing) => {
+                                const index = lane.passings.indexOf(passing);
+                                if (index !== lane.passings.length - 1) return null
+                                return millisToLapTime(
+                                  Date.parse(passing) -
+                                    Date.parse(lane.passings[index - 1])
+                                );
+                              })
+                            : null}
+                          {lane.passings.length === 0
+                            ? lane.passings.map((passing) => {
+                                return millisToLapTime(
+                                  Date.parse(passing) -
+                                    Date.parse(
+                                      props.starts.find(
+                                        (x) => x.id === race.start_id
+                                      )?.time || ''
+                                    )
+                                );
+                              })
+                            : null}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800">
+                          {lane.time}
                         </td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800">
                           {lane.finish_position}

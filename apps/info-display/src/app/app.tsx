@@ -169,18 +169,18 @@ export function App() {
   return (
     <div className="h-screen overflow-hidden">
       <div className="flex h-12 bg-gray-300 justify-between items-center px-6">
-        <p className="text-2xl text-center align-middle">
+        <p className="text-xl text-center align-middle">
           Live UNOFFICIAL results
         </p>
-        <p className="text-2xl text-center align-middle">
+        <p className="text-xl text-center align-middle hidden sm:block">
           2023 Special Olympics BC Winter Games
         </p>
-        <p className="text-left w-48">
+        <p className="text-left w-48 hidden lg:block">
           <RollingTime text="" />
         </p>
       </div>
       <div className="flex h-full">
-        <div className="flex flex-col h-full w-1/2 border-r-4">
+        <div className="flex flex-col h-full md:border-r-4 w-full md:w-1/2 overflow-hidden">
           <PreviousRaces
             races={previousRaces}
             lanes={lanes}
@@ -188,7 +188,7 @@ export function App() {
             competitors={competitors}
           />
         </div>
-        <div className="flex flex-col h-screen w-1/2 border-l-4">
+        <div className="flex flex-col h-screen md:border-l-4 md:block hidden md:w-1/2 overflow-hidden">
           <RacesList
             races={nextRaces}
             lanes={lanes}

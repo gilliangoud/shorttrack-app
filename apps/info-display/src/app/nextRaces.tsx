@@ -9,7 +9,7 @@ type Props = {
 
 export default function RacesList(props: Props) {
   return (
-    <ul className={`divide-y divide-gray-300 h-full`}>
+    <ul className={`divide-y divide-gray-300 h-full overflow-y-auto xl:overflow-y-hidden`}>
       {props.races.length > 0 ? (
         props.races.map((race) => (
           <li key={race.id} className="">
