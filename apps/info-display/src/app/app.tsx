@@ -37,7 +37,7 @@ export function App() {
       .from('races')
       .select('*')
       .eq('competition', 1)
-      .order('name', { ascending: true });
+      .order('id', { ascending: true });
     if (data) {
       setPreviousRaces(
         data.filter((x) => x.armed === true || x.start_id != null).reverse()
