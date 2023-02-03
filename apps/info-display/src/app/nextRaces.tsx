@@ -41,7 +41,7 @@ export default function RacesList(props: Props) {
                     scope="col"
                     className="py-1 text-left text-xs font-semibold text-gray-500 sm:pl-6"
                   >
-                    Start position
+                    Lane
                   </th>
                   <th
                     scope="col"
@@ -69,17 +69,17 @@ export default function RacesList(props: Props) {
                     .filter((x) => x.raceId === race.id)
                     .map((lane) => (
                       <tr key={lane.id}>
-                        <td className="whitespace-nowrap py-2 text-left text-sm font-medium text-gray-800 sm:pl-6">
+                        <td className="whitespace-nowrap py-2 text-left text-sm lg:text-xl font-medium text-gray-800 sm:pl-6">
                           {lane.id}
                         </td>
-                        <td className="whitespace-nowrap py-2 px-3 text-left text-sm font-medium text-gray-800">
+                        <td className="whitespace-nowrap py-2 px-3 text-left text-sm lg:text-xl font-medium text-gray-800">
                           {
                             props.competitors.find(
                               (c) => c.id === lane.competitorId
                             )?.helmet_id
                           }
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800">
+                        <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800">
                           {
                             props.competitors.find(
                               (c) => c.id === lane.competitorId

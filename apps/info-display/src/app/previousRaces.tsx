@@ -76,7 +76,7 @@ export default function RacesList(props: Props) {
                     scope="col"
                     className="py-1 text-left text-xs font-semibold text-gray-500 sm:pl-6"
                   >
-                    Start position
+                    Lane
                   </th>
                   <th
                     scope="col"
@@ -122,10 +122,10 @@ export default function RacesList(props: Props) {
                     })
                     .map((lane) => (
                       <tr key={lane.id}>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800 sm:pl-6">
+                        <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800 sm:pl-6">
                           {lane.id}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800">
+                        <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800">
                           {
                             props.competitors.find(
                               (c) => c.id === lane.competitorId
@@ -144,7 +144,7 @@ export default function RacesList(props: Props) {
                           }
                           {/* Add the competitors name here later with their helmet number */}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800 lg:flex hidden">
+                        <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800 lg:flex hidden">
                           {/* only display the latest laptime */}
                           {lane.passings.length > 1
                             ? lane.passings.map((passing) => {
@@ -169,10 +169,10 @@ export default function RacesList(props: Props) {
                               })
                             : null}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800">
+                        <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800">
                           {lane.time}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800">
+                        <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800">
                           {lane.finish_position}
                         </td>
                       </tr>
