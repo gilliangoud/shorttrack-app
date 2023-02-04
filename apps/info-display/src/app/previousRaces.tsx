@@ -25,7 +25,7 @@ export default function RacesList(props: Props) {
     trackLength: number
   ): number => {
     const laps = passings.length || 0;
-    return (distance / trackLength - laps) | 0;
+    return Math.round(distance / trackLength - laps);
   };
 
   const millisToLapTime = (millis: number): string => {
@@ -86,6 +86,12 @@ export default function RacesList(props: Props) {
                   </th>
                   <th
                     scope="col"
+                    className="py-1 text-left text-xs font-semibold text-gray-500"
+                  >
+                    laps
+                  </th>
+                  <th
+                    scope="col"
                     className="py-1 text-left text-xs font-semibold text-gray-500 hidden lg:block"
                   >
                     Last lap
@@ -143,6 +149,9 @@ export default function RacesList(props: Props) {
                             )?.last_name
                           }
                           {/* Add the competitors name here later with their helmet number */}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800">
+                          {lapsToGo(lane.passings, race.distance, race.track)}
                         </td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800 lg:flex hidden">
                           {/* only display the latest laptime */}

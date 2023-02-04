@@ -42,7 +42,7 @@ export function App() {
       setPreviousRaces(
         // sort by armed, then by start_id, so races that are run out of inteded order are show logically
         data.filter((x) => x.armed === true || x.start_id != null).sort((a, b) => {
-          return (b.start_id || 0) - (a.start_id || 1)
+          return a.start_id ? (b.start_id || 0) - (a.start_id || 0) : -1;
         })
       );
       setNextRaces(data.filter((x) => x.armed === false && x.start_id == null));
