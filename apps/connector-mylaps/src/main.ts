@@ -88,7 +88,7 @@ const sub = supabase
     },
     (payload) => {
       const passing = payload.new as Passing;
-      if (passing.tran_code === '9992') {
+      if (passing.transponder === '9992') {
         console.log('start happened', passing.time);
         readyRaces.forEach((race) => {
           if (race.start_id == null) {
@@ -122,7 +122,7 @@ const sub = supabase
           }
 
           // and we still need passings for this lane
-          const passingsNeeded = (race.distance / race.track) | 0;
+          const passingsNeeded = Math.ceil(race.distance / race.track);
           const laneInRace = lanesByRace
             .get(race.id)
             .find((x) => x.id === lane);
@@ -176,7 +176,7 @@ const sub = supabase
             }, 1);
             finish(race.id, lane, finishTime);
             console.log(
-              `Race ${race.id} lane ${lane} finished ${finishPosition} in ${finishTime}`
+              `Race ${race.id} lane ${lane} finished ${finishPosition} in ${finishTime} with ${passingsToNow.length} laps`
             );
           }
         });
