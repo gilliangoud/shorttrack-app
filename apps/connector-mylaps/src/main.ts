@@ -122,7 +122,7 @@ const sub = supabase
           }
 
           // and we still need passings for this lane
-          const passingsNeeded = Math.ceil(race.distance / race.track);
+          const passingsNeeded = Math.round(race.distance / race.track);
           const laneInRace = lanesByRace
             .get(race.id)
             .find((x) => x.id === lane);
