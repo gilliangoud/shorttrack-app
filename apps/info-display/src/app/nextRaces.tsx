@@ -19,7 +19,7 @@ export default function RacesList(props: Props) {
   return (
     <ul
       ref={parent}
-      className={`divide-y divide-gray-300 h-full xl:overflow-y-hidden`} // overflow-y-auto
+      className={`divide-y divide-gray-300 h-full xl:overflow-y-hidden scrollbar-hide overflow-y-auto`}
     >
       {props.races.length > 0 ? (
         props.races.map((race) => (
