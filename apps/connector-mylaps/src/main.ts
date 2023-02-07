@@ -168,15 +168,9 @@ const sub = supabase
               new Date(passing.time).getTime() -
               new Date(starts.get(race.start_id)?.time).getTime();
             const finishTime = millisToTimeString(finishMillis);
-            // calcular finish position
-            const finishPosition = lanesByRace.get(race.id).reduce((acc, x) => {
-              if (x.time == null) return acc;
-              if (x.time < finishTime) return acc + 1;
-              return acc;
-            }, 1);
             finish(race.id, lane, finishTime);
             console.log(
-              `Race ${race.id} lane ${lane} finished ${finishPosition} in ${finishTime} with ${passingsToNow.length} laps`
+              `Race ${race.id} lane ${lane} in ${finishTime} with ${passingsToNow.length} laps`
             );
           }
         });
@@ -380,11 +374,38 @@ const reCalculateFinishPositions = async (raceId: number) => {
         }
     });
     console.log('Recalculated finish positions', raceId);
+
+    // if all lanes are returned, all lanes have finished
+    if (data.length === lanesByRace.get(raceId)?.length) {
+      finalizeRace(raceId);
+    }
   }
   if (error) {
     console.log('error', error);
   }
 };
+
+const finalizeRace = async (raceId: number) => {
+  try {
+    const { data, error, status } = await supabase
+    .from('race')
+    .update({
+      armed: false,
+    })
+    .eq('id', raceId)
+    .select();
+
+    if (data) {
+      console.log(`race ${raceId} finalized`);
+    }
+
+    if (error && status !== 406) {
+      throw error;
+    }
+  } catch (error: any) {
+    alert(error.message);
+  }
+}
 
 fetchRaces();
 fetchTransponders();
