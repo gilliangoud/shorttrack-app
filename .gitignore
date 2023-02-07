@@ -40,3 +40,5 @@ Thumbs.db
 
 # environment variables
 .env
+
+.astro
