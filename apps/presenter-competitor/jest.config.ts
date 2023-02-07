@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'info-display',
+  displayName: 'presenter-competitor',
   preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/apps/info-display',
+  coverageDirectory: '../../coverage/apps/presenter-competitor',
 };

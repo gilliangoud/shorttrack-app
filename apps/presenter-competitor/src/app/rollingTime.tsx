@@ -13,11 +13,7 @@ const RollingTime = (props: Props) => {
     setTime(new Date().toLocaleString());
   }, 1000);
 
-  return (
-    <p className={props.className}>
-      {time}
-    </p>
-  );
+  return <p className={props.className}>{time}</p>;
 };
 
 export default RollingTime;

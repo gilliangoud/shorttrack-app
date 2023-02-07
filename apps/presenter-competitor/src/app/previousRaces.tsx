@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
-import autoAnimate from '@formkit/auto-animate'
+import { useState, useRef, useEffect } from 'react';
+import autoAnimate from '@formkit/auto-animate';
 
 import { Competitor, Lane, Race, Start } from './app';
 import { TimeSince } from './timeSince';
@@ -13,11 +13,11 @@ type Props = {
 };
 
 export default function RacesList(props: Props) {
-  const parent = useRef(null)
+  const parent = useRef(null);
 
   useEffect(() => {
-    parent.current && autoAnimate(parent.current)
-  }, [parent])
+    parent.current && autoAnimate(parent.current);
+  }, [parent]);
 
   const lapsToGo = (
     passings: string[],
@@ -26,13 +26,19 @@ export default function RacesList(props: Props) {
   ): number => {
     const laps = passings.length || 0;
     // const lapsToGo = Math.round(distance / trackLength - laps);
-    const lapsToGo = (distance / trackLength - laps);
+    const lapsToGo = distance / trackLength - laps;
     return lapsToGo;
   };
 
   const lapsTogoText = (lane: Lane, race: Race): string => {
-    return race.start_id ? (lapsToGo(lane.passings, race.distance, race.track) > 0 ? (Math.round(lapsToGo(lane.passings, race.distance, race.track)) - 1).toString() : "Finished") : lapsToGo(lane.passings, race.distance, race.track).toFixed(1)
-  }
+    return race.start_id
+      ? lapsToGo(lane.passings, race.distance, race.track) > 0
+        ? (
+            Math.round(lapsToGo(lane.passings, race.distance, race.track)) - 1
+          ).toString()
+        : 'Finished'
+      : lapsToGo(lane.passings, race.distance, race.track).toFixed(1);
+  };
 
   const millisToLapTime = (millis: number): string => {
     Math.abs(millis);
@@ -92,7 +98,9 @@ export default function RacesList(props: Props) {
                   </th>
                   <th
                     scope="col"
-                    className={`py-1 text-left text-xs font-semibold text-gray-500 ${race.armed? '' : 'hidden'}`}
+                    className={`py-1 text-left text-xs font-semibold text-gray-500 ${
+                      race.armed ? '' : 'hidden'
+                    }`}
                   >
                     To go
                   </th>
@@ -156,7 +164,11 @@ export default function RacesList(props: Props) {
                           }
                           {/* Add the competitors name here later with their helmet number */}
                         </td>
-                        <td className={`whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800 ${race.armed? '' : 'hidden'} `}>
+                        <td
+                          className={`whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800 ${
+                            race.armed ? '' : 'hidden'
+                          } `}
+                        >
                           {lapsTogoText(lane, race)}
                         </td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm lg:text-xl text-gray-800 lg:flex hidden">
@@ -164,7 +176,8 @@ export default function RacesList(props: Props) {
                           {lane.passings.length > 1
                             ? lane.passings.map((passing) => {
                                 const index = lane.passings.indexOf(passing);
-                                if (index !== lane.passings.length - 1) return null
+                                if (index !== lane.passings.length - 1)
+                                  return null;
                                 return millisToLapTime(
                                   Date.parse(passing) -
                                     Date.parse(lane.passings[index - 1])

@@ -1,7 +1,7 @@
 {
-  "name": "info-display",
+  "name": "presenter-competitor",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/info-display/src",
+  "sourceRoot": "apps/presenter-competitor/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,19 +10,19 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/apps/info-display",
-        "index": "apps/info-display/src/index.html",
+        "outputPath": "dist/apps/presenter-competitor",
+        "index": "apps/presenter-competitor/src/index.html",
         "baseHref": "/",
-        "main": "apps/info-display/src/main.tsx",
-        "tsConfig": "apps/info-display/tsconfig.app.json",
+        "main": "apps/presenter-competitor/src/main.tsx",
+        "tsConfig": "apps/presenter-competitor/tsconfig.app.json",
         "assets": [
-          "apps/info-display/src/favicon.ico",
-          "apps/info-display/src/assets"
+          "apps/presenter-competitor/src/favicon.ico",
+          "apps/presenter-competitor/src/assets"
         ],
-        "styles": ["apps/info-display/src/styles.css"],
+        "styles": ["apps/presenter-competitor/src/styles.css"],
         "scripts": [],
-        "webpackConfig": "apps/info-display/webpack.config.js",
-        "postcssConfig": "apps/info-display/postcss.config.js"
+        "webpackConfig": "apps/presenter-competitor/webpack.config.js",
+        "postcssConfig": "apps/presenter-competitor/postcss.config.js"
       },
       "configurations": {
         "development": {
@@ -34,8 +34,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/info-display/src/environments/environment.ts",
-              "with": "apps/info-display/src/environments/environment.prod.ts"
+              "replace": "apps/presenter-competitor/src/environments/environment.ts",
+              "with": "apps/presenter-competitor/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -51,15 +51,15 @@
       "executor": "@nrwl/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "info-display:build",
+        "buildTarget": "presenter-competitor:build",
         "hmr": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "info-display:build:development"
+          "buildTarget": "presenter-competitor:build:development"
         },
         "production": {
-          "buildTarget": "info-display:build:production",
+          "buildTarget": "presenter-competitor:build:production",
           "hmr": false
         }
       }
@@ -68,14 +68,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/info-display/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/presenter-competitor/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/info-display/jest.config.ts",
+        "jestConfig": "apps/presenter-competitor/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

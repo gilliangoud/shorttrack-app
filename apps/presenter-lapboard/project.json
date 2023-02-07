@@ -1,7 +1,7 @@
 {
-  "name": "info-lapboard",
+  "name": "presenter-lapboard",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/info-lapboard/src",
+  "sourceRoot": "apps/presenter-lapboard/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/info-lapboard"
+        "outputPath": "dist/apps/presenter-lapboard"
       },
       "configurations": {
         "development": {
@@ -24,15 +24,15 @@
       "executor": "@nrwl/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "info-lapboard:build"
+        "buildTarget": "presenter-lapboard:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "info-lapboard:build:development",
+          "buildTarget": "presenter-lapboard:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "info-lapboard:build:production",
+          "buildTarget": "presenter-lapboard:build:production",
           "hmr": false
         }
       }
@@ -41,30 +41,30 @@
       "executor": "@nrwl/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "info-lapboard:build"
+        "buildTarget": "presenter-lapboard:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "info-lapboard:build:development"
+          "buildTarget": "presenter-lapboard:build:development"
         },
         "production": {
-          "buildTarget": "info-lapboard:build:production"
+          "buildTarget": "presenter-lapboard:build:production"
         }
       }
     },
     "test": {
       "executor": "@nrwl/vite:test",
-      "outputs": ["coverage/apps/info-lapboard"],
+      "outputs": ["coverage/apps/presenter-lapboard"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/apps/info-lapboard"
+        "reportsDirectory": "../../coverage/apps/presenter-lapboard"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/info-lapboard/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/presenter-lapboard/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },

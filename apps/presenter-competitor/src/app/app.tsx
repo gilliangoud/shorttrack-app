@@ -41,9 +41,11 @@ export function App() {
     if (data) {
       setPreviousRaces(
         // sort by armed, then by start_id, so races that are run out of inteded order are show logically
-        data.filter((x) => x.armed === true || x.start_id != null).sort((a, b) => {
-          return a.start_id ? (b.start_id || 0) - (a.start_id || 0) : -1;
-        })
+        data
+          .filter((x) => x.armed === true || x.start_id != null)
+          .sort((a, b) => {
+            return a.start_id ? (b.start_id || 0) - (a.start_id || 0) : -1;
+          })
       );
       setNextRaces(data.filter((x) => x.armed === false && x.start_id == null));
       console.log('fetched races');
@@ -130,7 +132,9 @@ export function App() {
           const updatedLane = payload.new as Lane;
           setLanes((lanes) => {
             const newLanes: Lane[] = [...lanes];
-            const index = newLanes.findIndex((x) => x.resultsRef === updatedLane.resultsRef);
+            const index = newLanes.findIndex(
+              (x) => x.resultsRef === updatedLane.resultsRef
+            );
             if (index === -1) {
               newLanes.push(payload.new as Lane);
             } else {

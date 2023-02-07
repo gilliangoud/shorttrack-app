@@ -1,19 +1,19 @@
 {
-  "name": "info-display-e2e",
+  "name": "presenter-competitor-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/info-display-e2e/src",
+  "sourceRoot": "apps/presenter-competitor-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/info-display-e2e/cypress.config.ts",
-        "devServerTarget": "info-display:serve:development",
+        "cypressConfig": "apps/presenter-competitor-e2e/cypress.config.ts",
+        "devServerTarget": "presenter-competitor:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "info-display:serve:production"
+          "devServerTarget": "presenter-competitor:serve:production"
         }
       }
     },
@@ -21,10 +21,10 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/info-display-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/presenter-competitor-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["info-display"]
+  "implicitDependencies": ["presenter-competitor"]
 }
