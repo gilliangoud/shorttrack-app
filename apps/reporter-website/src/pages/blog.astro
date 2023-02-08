@@ -12,7 +12,6 @@ const posts = (await Astro.glob("./blog/*.{md,mdx}")).sort(
     new Date(b.frontmatter.publishDate).valueOf() -
     new Date(a.frontmatter.publishDate).valueOf()
 );
-console.log(posts[0].frontmatter.image);
 ---
 
 <Layout title="Blog">
@@ -20,7 +19,7 @@ console.log(posts[0].frontmatter.image);
     <Sectionhead>
       <Fragment slot="title">Our Blog</Fragment>
       <Fragment slot="desc"
-        >We write about building startups and thoughts going on our mind.</Fragment
+        >We don't even know if there are gonna be any articles in here.</Fragment
       >
     </Sectionhead>
     <main class="mt-16">

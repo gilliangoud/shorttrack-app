@@ -4,19 +4,19 @@ import Link from "website/components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 
 const menuitems = [
-  {
-    title: "Features",
-    path: "#",
-    children: [
-      { title: "Action", path: "#" },
-      { title: "Another action", path: "#" },
-      { title: "Dropdown Submenu", path: "#" },
-    ],
-  },
-  {
-    title: "Pricing",
-    path: "/pricing",
-  },
+  // {
+  //   title: "Features",
+  //   path: "#",
+  //   children: [
+  //     { title: "Action", path: "#" },
+  //     { title: "Another action", path: "#" },
+  //     { title: "Dropdown Submenu", path: "#" },
+  //   ],
+  // },
+  // {
+  //   title: "Pricing",
+  //   path: "/pricing",
+  // },
   {
     title: "About",
     path: "/about",
@@ -39,8 +39,8 @@ const menuitems = [
     x-init="$watch('open', value => console.log(value))">
     <div class="flex w-full lg:w-auto items-center justify-between">
       <a href="/" class="text-lg"
-        ><span class="font-bold text-slate-800">Astro</span><span
-          class="text-slate-500">ship</span
+        ><span class="font-bold text-slate-800">Shorttrack</span><span
+          class="text-slate-500">app</span
         >
       </a>
       <div class="block lg:hidden">

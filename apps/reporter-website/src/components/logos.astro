@@ -1,16 +1,47 @@
 ---
 // @ts-ignore
-import { Icon } from "astro-icon";
+import { Icon } from 'astro-icon';
+import { Image } from '@astrojs/image/components';
 ---
 
 <div class="mt-24">
   <h2 class="text-center text-slate-500">Works with your technologies</h2>
   <div class="flex gap-8 md:gap-20 items-center justify-center mt-10 flex-wrap">
-    <Icon class="h-8 md:h-12" name="simple-icons:react" />
-    <Icon class="h-8 md:h-12" name="simple-icons:svelte" />
-    <Icon class="h-8 md:h-14" name="simple-icons:tailwindcss" />
-    <Icon class="h-8 md:h-16" name="simple-icons:alpinedotjs" />
-    <Icon class="h-8 md:h-12" name="simple-icons:vercel" />
-    <Icon class="h-8 md:h-12" name="simple-icons:astro" />
+    <Image
+      src={'https://finishlynx.com/wp-content/themes/finish-lynx/assets/img/lynx-icon.jpeg'}
+      alt="Finish Lynx Logo"
+      format="jpg"
+      width={100}
+      height={100}
+      loading="lazy"
+      class="h-8 md:h-12 w-8 md:w-12"
+    />
+    <Image
+      src={'https://www.mylaps.com/app/uploads/2017/07/cropped-Ypng-192x192.png'}
+      alt="Mylaps Logo"
+      format="png"
+      width={100}
+      height={100}
+      loading="lazy"
+      class="h-8 md:h-12 w-8 md:w-12"
+    />
+    <Image
+      src={'https://www.raceresult.com/en-ca/graphics/favicon.png'}
+      alt="Race Result Logo"
+      format="png"
+      width={100}
+      height={100}
+      loading="lazy"
+      class="h-8 md:h-12 w-8 md:w-12"
+    />
+    <Image
+      src={'https://zone4.ca/favicon.png'}
+      alt="Zone4 Logo"
+      format="png"
+      width={100}
+      height={100}
+      loading="lazy"
+      class="h-8 md:h-12 w-8 md:w-12"
+    />
   </div>
 </div>

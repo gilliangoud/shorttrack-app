@@ -3,37 +3,35 @@ import Layout from "website/layouts/Layout.astro";
 import Container from "website/components/container.astro";
 import Sectionhead from "website/components/sectionhead.astro";
 import { Image } from "@astrojs/image/components";
-
-const TeamImg1 = "https://source.unsplash.com/IF9TK5Uy-KI";
-const TeamImg2 = "https://source.unsplash.com/iEEBWgY_6lA";
-const TeamImg3 = "https://source.unsplash.com/ZHvM3XIOHoE";
+import TeamImg1 from "website/assets/gillian.jpg";
+import TeamImg2 from "website/assets/person_placeholder.jpg";
 
 const team = [
   {
-    name: "Janette Lynch",
-    title: "Senior Director",
+    name: "Gillian Goud",
+    title: "Founder",
     avatar: {
       src: TeamImg1,
-      width: 480,
-      height: 560,
+      width: 460,
+      height: 614,
     },
   },
   {
-    name: "Marcell Ziemann",
-    title: "Principal Strategist",
+    name: "Empty spot",
+    title: "Developer",
     avatar: {
       src: TeamImg2,
-      width: 580,
-      height: 580,
+      width: 640,
+      height: 387,
     },
   },
   {
-    name: "Robert Palmer",
-    title: "Marketing Engineer",
+    name: "Empty spot",
+    title: "Race manager",
     avatar: {
-      src: TeamImg3,
-      width: 580,
-      height: 580,
+      src: TeamImg2,
+      width: 640,
+      height: 387,
     },
   },
 ];
@@ -43,17 +41,15 @@ const team = [
   <Container>
     <Sectionhead>
       <Fragment slot="title">About</Fragment>
-      <Fragment slot="desc">We are a small passionate team.</Fragment>
+      <Fragment slot="desc">We are a small, incomplete passionate team.</Fragment>
     </Sectionhead>
 
     <div class="flex flex-col gap-3 mx-auto max-w-4xl mt-16">
       <h2 class="font-bold text-3xl text-gray-800">
-        Empowering the world with Astro.
+        Delivering Higher experiences in sport.
       </h2>
       <p class="text-lg leading-relaxed text-slate-500">
-        We're a multi-cultural team from around the world! We come from diverse
-        backgrounds, bringing different personalities, experiences and skills to
-        the job. This is what makes our team so special.
+        Our team is special, in the sense that it's not complete. We are looking to expand the team with people who are passionate about sport and technology. If you are interested in joining us, please contact us.
       </p>
     </div>
     <div class="grid md:grid-cols-3 gap-10 mx-auto max-w-4xl mt-12">
