@@ -15,8 +15,12 @@ export interface Database {
           created_at: string
           dates: string[] | null
           host: string | null
+          hosts: string[] | null
           id: number
+          location: string | null
           name: string
+          public: boolean
+          splash_image: string | null
           sync_competition: boolean
           sync_competitors: boolean
           sync_location: string | null
@@ -29,8 +33,12 @@ export interface Database {
           created_at?: string
           dates?: string[] | null
           host?: string | null
+          hosts?: string[] | null
           id?: number
+          location?: string | null
           name: string
+          public?: boolean
+          splash_image?: string | null
           sync_competition?: boolean
           sync_competitors?: boolean
           sync_location?: string | null
@@ -43,8 +51,12 @@ export interface Database {
           created_at?: string
           dates?: string[] | null
           host?: string | null
+          hosts?: string[] | null
           id?: number
+          location?: string | null
           name?: string
+          public?: boolean
+          splash_image?: string | null
           sync_competition?: boolean
           sync_competitors?: boolean
           sync_location?: string | null

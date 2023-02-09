@@ -38,12 +38,12 @@ const { data: competitions, error } = await supabase
                       width={1000}
                       height={1000}
                       format="avif"
-                      class="w-full rounded-md"
+                      class="w-full rounded-md p-6"
                     />
                   </div>
                   <div>
                     <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-                      {competition.host}
+                      {competition.hosts.join(', ')}
                     </span>
 
                     <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
@@ -52,7 +52,7 @@ const { data: competitions, error } = await supabase
 
                     <div class="flex gap-2 mt-3">
                       <span class="text-gray-400">
-                        {competition.name}
+                        {competition.location}
                       </span>
                       <span class="text-gray-400">• </span>
                       <time
