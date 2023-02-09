@@ -43,7 +43,7 @@ const { data: competitions, error } = await supabase
                   </div>
                   <div>
                     <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-                      {competition.hosts.join(', ')}
+                      {competition.hosts?.join(', ')}
                     </span>
 
                     <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
