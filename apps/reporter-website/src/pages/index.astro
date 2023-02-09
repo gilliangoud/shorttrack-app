@@ -1,14 +1,17 @@
 ---
+import {getUser} from '../utils/auth';
+const user = await getUser(Astro.request) || undefined;
+
 import Container from "website/components/container.astro";
 import Cta from "website/components/cta.astro";
 import Features from "website/components/features.astro";
 import Footer from "website/components/footer.astro";
 import Hero from "website/components/hero.astro";
 import Logos from "website/components/logos.astro";
-import Layout from "website/layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="">
+<Layout title="" user={user}>
   <Container>
     <Hero />
     <Features />

@@ -13,6 +13,7 @@ export interface Database {
         Row: {
           active: boolean
           created_at: string
+          dates: string[] | null
           host: string | null
           id: number
           name: string
@@ -26,6 +27,7 @@ export interface Database {
         Insert: {
           active?: boolean
           created_at?: string
+          dates?: string[] | null
           host?: string | null
           id?: number
           name: string
@@ -39,6 +41,7 @@ export interface Database {
         Update: {
           active?: boolean
           created_at?: string
+          dates?: string[] | null
           host?: string | null
           id?: number
           name?: string
@@ -264,31 +267,37 @@ export interface Database {
         Row: {
           gps_locked: boolean | null
           id: number
+          inserted: string
           time: string | null
         }
         Insert: {
           gps_locked?: boolean | null
           id?: number
+          inserted?: string
           time?: string | null
         }
         Update: {
           gps_locked?: boolean | null
           id?: number
+          inserted?: string
           time?: string | null
         }
       }
       transponders: {
         Row: {
+          competitor_id: number | null
           id: string
           lane: number | null
           name: string | null
         }
         Insert: {
+          competitor_id?: number | null
           id: string
           lane?: number | null
           name?: string | null
         }
         Update: {
+          competitor_id?: number | null
           id?: string
           lane?: number | null
           name?: string | null
@@ -305,6 +314,9 @@ export interface Database {
       }
     }
     Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
       [_ in never]: never
     }
   }

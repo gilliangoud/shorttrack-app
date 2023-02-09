@@ -1,10 +1,12 @@
 ---
-import Layout from "website/layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro";
 import Container from "website/components/container.astro";
 import Sectionhead from "website/components/sectionhead.astro";
 import { Image } from "@astrojs/image/components";
 import TeamImg1 from "website/assets/gillian.jpg";
 import TeamImg2 from "website/assets/person_placeholder.jpg";
+import {getUser} from '../utils/auth';
+const user = await getUser(Astro.request) || undefined;
 
 const team = [
   {
@@ -37,7 +39,7 @@ const team = [
 ];
 ---
 
-<Layout title="About">
+<Layout title="About" user={user}>
   <Container>
     <Sectionhead>
       <Fragment slot="title">About</Fragment>

@@ -1,13 +1,15 @@
 ---
 import { Icon } from "astro-icon";
-import Layout from "website/layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro";
 import Container from "website/components/container.astro";
 import Sectionhead from "website/components/sectionhead.astro";
 import Button from "website/components/ui/button.astro";
 import Contactform from "website/components/contactform.astro";
+import {getUser} from '../utils/auth';
+const user = await getUser(Astro.request) || undefined;
 ---
 
-<Layout title="Contact">
+<Layout title="Contact" user={user}>
   <Container>
     <Sectionhead>
       <Fragment slot="title">Contact</Fragment>

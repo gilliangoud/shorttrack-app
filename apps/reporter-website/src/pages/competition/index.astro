@@ -1,72 +1,72 @@
 ---
-import { Image } from "@astrojs/image/components";
-import Container from "website/components/container.astro";
-import Sectionhead from "website/components/sectionhead.astro";
-import Layout from "../layouts/Layout.astro";
-import { getFormattedDate } from "../utils/all";
-import { log } from "astro/dist/core/logger/core";
+import Container  from "website/components/container.astro";
+import Layout from "../../layouts/Layout.astro";
+import fallBackImage from '../../assets/hero.png'
 
-import {getUser} from '../utils/auth';
+import {getUser, supabase} from '../../utils/auth';
 const user = await getUser(Astro.request) || undefined;
+import { dateRangeText } from '../../utils/all'
+import Sectionhead from "website/components/sectionhead.astro";
+import { Image } from "@astrojs/image/components";
 
-// Use Astro.glob() to fetch all posts, and then sort them by date.
-const posts = (await Astro.glob("./blog/*.{md,mdx}")).sort(
-  (a, b) =>
-    new Date(b.frontmatter.publishDate).valueOf() -
-    new Date(a.frontmatter.publishDate).valueOf()
-);
+const { data: competitions, error } = await supabase
+  .from('competitions')
+  .select('*')
+  .eq('public', true)
+  .order('dates', { ascending: false })
 ---
 
-<Layout title="Blog" user={user}>
+<Layout title="Competition" user={user}>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">Our Blog</Fragment>
+      <Fragment slot="title">Competition results</Fragment>
       <Fragment slot="desc"
-        >We don't even know if there are gonna be any articles in here.</Fragment
+        >Please note that these results are unofficial.</Fragment
       >
     </Sectionhead>
     <main class="mt-16">
       <ul class="grid gap-16 max-w-4xl mx-auto">
         {
-          posts.map((post) => (
+          competitions ? competitions.map((competition) => (
             <li>
-              <a href={post.url}>
+              <a href={`/competition/${competition.id}`}>
                 <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
                   <div>
                     <Image
-                      src={post.frontmatter.image}
+                      src={competition.splash_image ? competition.splash_image: fallBackImage}
                       alt="Thumbnail"
-                      width={600}
+                      width={1000}
+                      height={1000}
                       format="avif"
-                      aspectRatio="16:9"
                       class="w-full rounded-md"
                     />
                   </div>
                   <div>
                     <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-                      {post.frontmatter.category}
+                      {competition.host}
                     </span>
 
                     <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
-                      {post.frontmatter.title}
+                      {competition.name}
                     </h2>
 
                     <div class="flex gap-2 mt-3">
                       <span class="text-gray-400">
-                        {post.frontmatter.author}
+                        {competition.name}
                       </span>
                       <span class="text-gray-400">• </span>
                       <time
                         class="text-gray-400"
-                        datetime={post.frontmatter.publishDate}>
-                        {getFormattedDate(post.frontmatter.publishDate)}
+                        datetime={'0'}
+                        >
+                        {dateRangeText(competition.dates)}
                       </time>
                     </div>
                   </div>
                 </div>
               </a>
             </li>
-          ))
+          )): <p>no competitions found</p>
         }
       </ul>
     </main>

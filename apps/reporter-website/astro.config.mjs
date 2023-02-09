@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel/serverless';
 import react from '@astrojs/react';
 import svelte from '@astrojs/svelte';
 import partytown from '@astrojs/partytown';
@@ -11,6 +12,8 @@ import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   outDir: '../../dist/apps/reporter-website',
+  output: 'server',
+  adapter: vercel(),
   integrations: [
     react(),
     svelte(),

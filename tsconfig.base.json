@@ -20,6 +20,7 @@
       "website/pages/*": ["apps/reporter-website/src/pages/*"],
       "website/layouts/*": ["apps/reporter-website/src/layouts/*"],
       "website/assets/*": ["apps/reporter-website/src/assets/*"],
+      "website/utils/*": ["apps/reporter-website/src/utils/*"],
     }
   },
   "exclude": ["node_modules", "tmp"]
