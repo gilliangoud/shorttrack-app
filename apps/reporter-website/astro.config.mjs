@@ -13,7 +13,9 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   outDir: '../../dist/apps/reporter-website',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    analytics: true,
+  }),
   integrations: [
     react(),
     svelte(),
