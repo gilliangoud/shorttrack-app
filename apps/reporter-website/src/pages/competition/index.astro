@@ -4,7 +4,9 @@ import Layout from "../../layouts/Layout.astro";
 import fallBackImage from '../../assets/hero.png'
 
 import {getUser, supabase} from '../../utils/auth';
-const user = await getUser(Astro.request) || undefined;
+// const user = await getUser(Astro.request) || undefined;
+const user = undefined;
+
 import { dateRangeText } from '../../utils/all'
 import Sectionhead from "website/components/sectionhead.astro";
 import { Image } from "@astrojs/image/components";

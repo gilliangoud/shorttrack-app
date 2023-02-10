@@ -5,8 +5,9 @@ import Sectionhead from "website/components/sectionhead.astro";
 import { Image } from "@astrojs/image/components";
 import TeamImg1 from "website/assets/gillian.jpg";
 import TeamImg2 from "website/assets/person_placeholder.jpg";
-import {getUser} from '../utils/auth';
-const user = await getUser(Astro.request) || undefined;
+// import {getUser} from '../utils/auth';
+// const user = await getUser(Astro.request) || undefined;
+const user = undefined;
 
 const team = [
   {

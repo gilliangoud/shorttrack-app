@@ -5,8 +5,9 @@ import Container from "website/components/container.astro";
 import Sectionhead from "website/components/sectionhead.astro";
 import Button from "website/components/ui/button.astro";
 import Contactform from "website/components/contactform.astro";
-import {getUser} from '../utils/auth';
-const user = await getUser(Astro.request) || undefined;
+// import {getUser} from '../utils/auth';
+// const user = await getUser(Astro.request) || undefined;
+const user = undefined;
 ---
 
 <Layout title="Contact" user={user}>
