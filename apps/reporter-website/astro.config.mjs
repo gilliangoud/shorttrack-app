@@ -20,7 +20,7 @@ export default defineConfig({
   build: {
     format: "file",
   },
-  site: siteUrl,
+  // site: siteUrl,
   output: 'server',
   // integrations: [react(), svelte(), partytown(), alpinejs(), sitemap(), tailwind(), turbolinks(), image(), mdx()],
   integrations: [react(), alpinejs(), sitemap(), tailwind(), image(), mdx(), vercel({
