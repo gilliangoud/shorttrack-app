@@ -2,17 +2,17 @@
 import Container  from "website/components/container.astro";
 import Layout from "../../layouts/Layout.astro";
 
-// import {getUser} from '../utils/auth';
-// const user = await getUser(Astro.request) || undefined;
-const user = undefined;
+import {getUser} from '../../utils/auth';
+const user = await getUser(Astro.request) || undefined;
+// const user = undefined;
 
-export function getStaticPaths() {
-  return [
-    {params: {competition: '1'}},
-    {params: {competition: '2'}},
-    {params: {competition: '3'}},
-  ];
-}
+// export function getStaticPaths() {
+//   return [
+//     {params: {competition: '1'}},
+//     {params: {competition: '2'}},
+//     {params: {competition: '3'}},
+//   ];
+// }
 
 const { competition } = Astro.params;
 ---
