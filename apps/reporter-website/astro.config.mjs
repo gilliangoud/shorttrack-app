@@ -15,7 +15,7 @@ const siteUrl = process.env.VERCEL_ENV === 'production' ? 'https://shorttrack.ap
 
 // https://astro.build/config
 export default defineConfig({
-  outDir: '../../dist/apps/reporter-website',
+  // outDir: '../../dist/apps/reporter-website',
   publicDir: "./public",
   build: {
     format: "file",
