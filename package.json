@@ -93,6 +93,7 @@
     "axios": "^1.0.0",
     "cookie": "^0.5.0",
     "dotenv": "^16.0.3",
+    "encoding": "^0.1.13",
     "env-cmd": "^10.1.0",
     "express": "^4.18.1",
     "inquirer": "^9.1.4",
