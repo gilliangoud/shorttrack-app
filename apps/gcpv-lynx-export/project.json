@@ -1,0 +1,59 @@
+{
+  "name": "gcpv-lynx-export",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/gcpv-lynx-export/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/gcpv-lynx-export",
+        "format": ["cjs"],
+        "main": "apps/gcpv-lynx-export/src/main.ts",
+        "tsConfig": "apps/gcpv-lynx-export/tsconfig.app.json",
+        "assets": ["apps/gcpv-lynx-export/src/assets"]
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "gcpv-lynx-export:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "gcpv-lynx-export:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/gcpv-lynx-export/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/gcpv-lynx-export/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["docker build -f apps/gcpv-lynx-export/Dockerfile ."]
+      }
+    }
+  },
+  "tags": []
+}

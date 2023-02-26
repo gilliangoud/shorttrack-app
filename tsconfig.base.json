@@ -16,11 +16,11 @@
     "baseUrl": ".",
     "paths": {
       "@shorttrack-app/st-app-db": ["libs/st-app-db/src/index.ts"],
-      "website/components/*": ["apps/reporter-website/src/components/*"],
-      "website/pages/*": ["apps/reporter-website/src/pages/*"],
-      "website/layouts/*": ["apps/reporter-website/src/layouts/*"],
       "website/assets/*": ["apps/reporter-website/src/assets/*"],
-      "website/utils/*": ["apps/reporter-website/src/utils/*"],
+      "website/components/*": ["apps/reporter-website/src/components/*"],
+      "website/layouts/*": ["apps/reporter-website/src/layouts/*"],
+      "website/pages/*": ["apps/reporter-website/src/pages/*"],
+      "website/utils/*": ["apps/reporter-website/src/utils/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
