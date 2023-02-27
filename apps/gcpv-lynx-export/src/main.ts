@@ -2,9 +2,14 @@ import { readFileSync, appendFileSync, unlinkSync } from 'fs';
 import MDBReader from 'mdb-reader';
 import watch from 'node-watch';
 
-import { getCompetitionId } from './app/competition';
-import { getCompetitors, getCompetitorsInCompetition } from './app/competitors';
-import { getRaces, getPrograms, getLanes } from './app/program';
+import {
+  getCompetitionId,
+  getCompetitors,
+  getCompetitorsInCompetition,
+  getRaces,
+  getPrograms,
+  getLanes,
+} from '@shorttrack-app/gcpv-db';
 
 const syncLocation = process.env.PAT_FILE || '/media/meet.pat';
 const eventFile = process.env.EVT_FILE || '/media/LYNX.EVT';
