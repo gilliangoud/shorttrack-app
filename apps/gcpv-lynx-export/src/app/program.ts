@@ -90,7 +90,7 @@ export const getLanes = (mdb: MDBReader, competitionId: number) => {
         skaterInCompetitionId: lane.NoPatCompe,
         time: lane.Temps,
         position: lane.Rang,
-        startPosition: lane.NoCasque,
+        startPosition: lane.NoCasque as number,
       };
     });
 };

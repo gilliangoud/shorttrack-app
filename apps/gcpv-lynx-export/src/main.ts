@@ -42,6 +42,7 @@ races.forEach((race) => {
   // for every lane in the race print one line with the lane info
   lanes
     .filter((c) => c.raceId === race.id)
+    .sort((a, b) => a.startPosition - b.startPosition)
     .forEach((lane) => {
       const competitor = competitorsInComp.filter(
         (c) => c.id === lane.skaterInCompetitionId
