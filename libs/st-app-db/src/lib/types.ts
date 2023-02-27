@@ -21,11 +21,6 @@ export interface Database {
           name: string
           public: boolean
           splash_image: string | null
-          sync_competition: boolean
-          sync_competitors: boolean
-          sync_location: string | null
-          sync_races: boolean
-          sync_results: boolean
           updated_at: string | null
         }
         Insert: {
@@ -39,11 +34,6 @@ export interface Database {
           name: string
           public?: boolean
           splash_image?: string | null
-          sync_competition?: boolean
-          sync_competitors?: boolean
-          sync_location?: string | null
-          sync_races?: boolean
-          sync_results?: boolean
           updated_at?: string | null
         }
         Update: {
@@ -57,11 +47,6 @@ export interface Database {
           name?: string
           public?: boolean
           splash_image?: string | null
-          sync_competition?: boolean
-          sync_competitors?: boolean
-          sync_location?: string | null
-          sync_races?: boolean
-          sync_results?: boolean
           updated_at?: string | null
         }
       }
@@ -78,6 +63,7 @@ export interface Database {
           id: number
           last_name: string | null
           scratched: boolean | null
+          universal_competitor_id: string | null
           updated_at: string
         }
         Insert: {
@@ -92,6 +78,7 @@ export interface Database {
           id?: number
           last_name?: string | null
           scratched?: boolean | null
+          universal_competitor_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -106,6 +93,7 @@ export interface Database {
           id?: number
           last_name?: string | null
           scratched?: boolean | null
+          universal_competitor_id?: string | null
           updated_at?: string
         }
       }

@@ -34,8 +34,6 @@ watch(syncLocation, { delay: 5000 }, function (evt, name) {
   }
 });
 
-updateCompetitors();
-
 function updateCompetitors() {
   const competitors = getCompetitors(mdb);
   const competitorsInCompetition = getCompetitorsInCompetition(
@@ -58,17 +56,47 @@ function updateCompetitors() {
       club_name: competitorInCompetition?.club_name as string,
       category_name: competitor.categoryId as string,
       affiliation: competitorInCompetition?.affiliation as string,
-    }});
+    };
+  });
 
-    // upsert competitors in supabase by universal_competitor_id and competition_id without using onConflict
-    mappedCompetitors.forEach(async (competitor) => {
-      const { data, error } = await supabase
-        .from('competitors')
-        .upsert(competitor)
-        .match({ universal_competitor_id: competitor.universal_competitor_id, competition_id: competitor.competition_id });
-      if (error) {
-        console.error(error);
-      }
+  // create list of competitors that arents in supabase and a list of competitors that are in supabase
+  supabase
+    .from('competitors')
+    .select('*')
+    .match({ competition_id: COMPETITION_ID })
+    .then((res) => {
+      const supabaseCompetitorIds = res.data.map(
+        (c) => c.universal_competitor_id
+      );
+      const competitorsToUpdate = mappedCompetitors.filter((c) =>
+        supabaseCompetitorIds.includes(c.universal_competitor_id)
+      );
+      const competitorsToInsert = mappedCompetitors.filter(
+        (c) => !supabaseCompetitorIds.includes(c.universal_competitor_id)
+      );
+
+      // insert competitors that arent in supabase
+      competitorsToInsert.forEach(async (competitor) => {
+        const { data, error } = await supabase
+          .from('competitors')
+          .insert(competitor);
+        if (error) {
+          console.error(error);
+        }
+      });
+
+      // update competitors that are in supabase
+      competitorsToUpdate.forEach(async (competitor) => {
+        const { data, error } = await supabase
+          .from('competitors')
+          .update(competitor)
+          .match({
+            universal_competitor_id: competitor.universal_competitor_id,
+            competition_id: competitor.competition_id,
+          });
+        if (error) {
+          console.error(error);
+        }
+      });
     });
-
 }
