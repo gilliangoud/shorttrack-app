@@ -23,9 +23,7 @@ jobs:
         username: gilliangoud
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Push Docker image
-      uses: docker/cli@v2
-      with:
-        command: push
-        args: docker.io/gilliangoud/gcpv-lynx-export:latest
+    - name: Push docker image to DockerHub
+      run: |
+        docker push gilliangoud/gcpv-lynx-export:latest
 
