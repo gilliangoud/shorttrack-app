@@ -1,13 +1,13 @@
 {
-  "name": "pat-lynx-export-e2e",
+  "name": "connector-gcpv-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["pat-lynx-export"],
+  "implicitDependencies": ["connector-gcpv"],
   "targets": {
     "e2e": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
       "options": {
-        "jestConfig": "apps/pat-lynx-export-e2e/jest.config.ts",
+        "jestConfig": "apps/connector-gcpv-e2e/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,7 +15,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/pat-lynx-export-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/connector-gcpv-e2e/**/*.{js,ts}"]
       }
     }
   }
