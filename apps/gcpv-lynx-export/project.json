@@ -51,7 +51,7 @@
       "dependsOn": ["build"],
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["docker build -f apps/gcpv-lynx-export/Dockerfile ."]
+        "commands": ["docker build -f apps/gcpv-lynx-export/Dockerfile -t gilliangoud/gcpv-lynx-export:latest ."]
       }
     }
   },

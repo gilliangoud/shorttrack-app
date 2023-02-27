@@ -1,0 +1,37 @@
+// generate finishlynx scheduleFile
+// ;Quarter Finals 1500 meter Men
+// 7,3,1
+// 7,3,2
+// 7,3,3
+// 7,3,4
+// 7,3,5
+
+// delete file if it exists
+try {
+  unlinkSync(scheduleFile);
+} catch (error) {
+  console.log('Schedule File does not exist yet');
+}
+
+appendFileSync(scheduleFile, JSON.stringify(races, null, 2))
+
+// const ScheduleArray = Object.values(races.reduce((groups, item) => {
+//   const groupKey = item.programItemId;
+//   if (!groups[groupKey]) {
+//     groups[groupKey] = [];
+//   }
+//   groups[groupKey].push(item);
+//   return groups;
+// }, {}));
+
+// ScheduleArray.forEach((scheduleItems: ReturnType<typeof getRaces>) => {
+//   const programItem = programs.find((c) => c.id === scheduleItems[0].programItemId);
+//   appendFileSync(scheduleFile, `;${programItem.group} ${programItem.length}m ${programItem.track}m\n`);
+//   scheduleItems.forEach((item) => {
+//     const event = item.name.toString().replace(/[a-z]/gi, "");
+//     const heat = letterToNumber(item.name.toString().match(/[a-zA-Z]/g).join(""));
+//     appendFileSync(scheduleFile, `${event},${event},${heat}\n`);
+//   })
+// });
+
+// function to compare race names 1A before 11B
