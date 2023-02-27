@@ -59,6 +59,7 @@ export const getCompetitorsInCompetition = (
         competitorId: competitors.find((c) => c.NoPatineur === competitor.NoPatineur).id,
         clubId: competitor.NoClub,
         affiliation: clubs.find((c) => c.id === competitor.NoClub).abbreviation,
+        club_name: clubs.find((c) => c.id === competitor.NoClub).name,
         rank: competitor.Rang,
         removed: competitor.Retirer,
         group: competitor.Groupe,

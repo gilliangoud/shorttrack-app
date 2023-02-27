@@ -67,6 +67,7 @@ export interface Database {
       }
       competitors: {
         Row: {
+          affiliation: string | null
           category_name: string | null
           club_name: string | null
           competition_id: number
@@ -80,6 +81,7 @@ export interface Database {
           updated_at: string
         }
         Insert: {
+          affiliation?: string | null
           category_name?: string | null
           club_name?: string | null
           competition_id: number
@@ -93,6 +95,7 @@ export interface Database {
           updated_at?: string
         }
         Update: {
+          affiliation?: string | null
           category_name?: string | null
           club_name?: string | null
           competition_id?: number

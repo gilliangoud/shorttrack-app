@@ -9,6 +9,8 @@ import {
   getRaces,
   getPrograms,
   getLanes,
+  letterToNumber,
+  raceCompare,
 } from '@shorttrack-app/gcpv-db';
 
 const syncLocation = process.env.PAT_FILE || '/media/meet.pat';
@@ -72,24 +74,3 @@ watch(syncLocation, { delay: 5000 }, function (evt, name) {
     // on delete
   }
 });
-
-function letterToNumber(letter) {
-  // Convert the letter to lowercase to handle uppercase letters
-  letter = letter.toLowerCase();
-
-  // Get the ASCII code for the letter and subtract the ASCII code for "a"
-  return letter.charCodeAt(0) - 97 + 1;
-}
-
-function raceCompare(a, b) {
-  const aNum = parseInt(a.name.slice(0, -1));
-  const bNum = parseInt(b.name.slice(0, -1));
-  const aLetter = a.name.slice(-1);
-  const bLetter = b.name.slice(-1);
-
-  if (aNum !== bNum) {
-    return aNum - bNum;
-  } else {
-    return aLetter.localeCompare(bLetter);
-  }
-}
