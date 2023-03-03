@@ -10,8 +10,8 @@ import Link from 'next/link';
 
 export const revalidate = 30;
 
-export async function generateStaticParams() {
-  const { data: items } = await supabase.from('program_items').select('sequence');
+export async function generateStaticParams({id}) {
+  const { data: items } = await supabase.from('program_items').select('sequence').match({ competition_id: id });
   return items.map((item) => ({
     sequenceId: item.sequence.toString(),
   }));
@@ -30,7 +30,8 @@ async function page({
   const { data: races } = await supabase
     .from('races')
     .select()
-    .in('pat_id', programItem?.race_ids)
+    .in('pat_id',
+      programItem? programItem.race_ids: [])
     .match({ competition: id })
     .order('pat_id', { ascending: true });
   const { data: lanes } = await supabase
@@ -38,14 +39,14 @@ async function page({
     .select()
     .in(
       'raceId',
-      races.map((race) => race.id)
+      races ? races.map((race) => race.id): []
     );
   const { data: competitors } = await supabase
     .from('competitors')
     .select()
     .in(
       'id',
-      lanes.map((lane) => lane.competitorId)
+      lanes ? lanes.map((lane) => lane.competitorId): []
     );
 
   if (!programItem) {
