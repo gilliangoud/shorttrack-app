@@ -37,13 +37,6 @@ export default function Graph({race, lanes, competitors}) {
       },
       legend: {
         display: false,
-        position: 'bottom',
-        labels: {
-            // This more specific font property overrides the global property
-            font: {
-                size: 8
-            }
-        }
     },
     },
     responsive: true,
