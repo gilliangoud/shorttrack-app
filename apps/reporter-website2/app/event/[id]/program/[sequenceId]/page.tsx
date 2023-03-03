@@ -25,13 +25,13 @@ async function page({
   const { data: programItem } = await supabase
     .from('program_items')
     .select()
-    .match({ sequence: sequenceId, competition: id })
+    .match({ sequence: sequenceId, competition_id: id })
     .single();
   const { data: races } = await supabase
     .from('races')
     .select()
-    .match({ competition: id })
     .in('pat_id', programItem?.race_ids)
+    .match({ competition: id })
     .order('pat_id', { ascending: true });
   const { data: lanes } = await supabase
     .from('lanes')
