@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 export const revalidate = 30;
 
-export async function generateStaticParams({id}) {
+export async function generateStaticParams({params:{id}}) {
   const { data: items } = await supabase.from('program_items').select('sequence').match({ competition_id: id });
   return items.map((item) => ({
     sequenceId: item.sequence.toString(),
