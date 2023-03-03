@@ -1,13 +1,10 @@
 import { supabase } from '../../../../utils/supabase';
 import { notFound } from 'next/navigation';
 import ProgramWithUpdates from './programWithUpdates';
-import {
-  CalendarIcon,
-  MapPinIcon,
-  UsersIcon,
-} from '@heroicons/react/20/solid';
+import { CalendarIcon, MapPinIcon, UsersIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 export const revalidate = 30;
 
@@ -40,8 +37,17 @@ async function page({ params: { id } }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="lg:flex lg:items-center lg:justify-between p-4 bg-white mb-4 rounded-md">
-        <div className="min-w-0 flex-1 px-2">
+      <div className="flex lg:items-center lg:justify-between bg-white mb-4 rounded-md">
+        <div className="flex-wrap flex  items-center justify-center align-middle">
+          <Image
+            className='self-center justify-center items-center align-middle'
+            src={competition.splash_image}
+            alt={competition.name}
+            width={70}
+            height={150}
+          />
+        </div>
+        <div className="min-w-0 flex-1 px-2 p-3">
           <nav className="flex" aria-label="Breadcrumb">
             <ol role="list" className="flex items-center space-x-4">
               <li>

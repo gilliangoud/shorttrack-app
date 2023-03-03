@@ -12,6 +12,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    domains: ['speedskatingbc.ca'],
+  },
   experimental: {
     appDir: true,
   },
@@ -20,7 +23,7 @@ const nextConfig = {
       {
         source: '/',
         basePath: false,
-        destination: '/event/3/program',
+        destination: '/event/2/program',
         permanent: false,
       },
     ];
