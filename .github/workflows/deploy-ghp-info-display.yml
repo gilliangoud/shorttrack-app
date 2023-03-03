@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Export
-        run: npx npx nx build info-display --configuration=production --baseHref=/shorttrack-app/
+        run: npx npx nx build presenter-competitor --configuration=production --baseHref=/shorttrack-app/
 
       - name: Setup GitHub pages
         uses: actions/configure-pages@v2
