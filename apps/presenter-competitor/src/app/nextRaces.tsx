@@ -9,6 +9,23 @@ type Props = {
   competitors: Competitor[];
 };
 
+export function raceCompare(a: Race, b: Race) {
+  if (a.name && b.name) {
+    const aNum = parseInt(a.name.slice(0, -1));
+    const bNum = parseInt(b.name.slice(0, -1));
+    const aLetter = a.name.slice(-1);
+    const bLetter = b.name.slice(-1);
+
+    if (aNum !== bNum) {
+      return aNum - bNum;
+    } else {
+      return aLetter.localeCompare(bLetter);
+    }
+  } else {
+    return 0;
+  }
+}
+
 export default function RacesList(props: Props) {
   const parent = useRef(null);
 
@@ -22,7 +39,7 @@ export default function RacesList(props: Props) {
       className={`divide-y divide-gray-300 h-full scrollbar-hide overflow-y-auto`}
     >
       {props.races.length > 0 ? (
-        props.races.map((race) => (
+        props.races.sort(raceCompare).map((race) => (
           <li key={race.id} className="">
             <div className="bg-gray-50 px-3 pl-6 py-1 flex justify-between">
               <p className="">
@@ -92,7 +109,13 @@ export default function RacesList(props: Props) {
                           }
                           {/* Add the competitors name here later with their helmet number */}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800"></td>
+                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-800">
+                        {
+                            props.competitors.find(
+                              (c) => c.id === lane.competitorId
+                            )?.affiliation
+                          }
+                        </td>
                       </tr>
                     ))
                 ) : (

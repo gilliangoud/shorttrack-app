@@ -73,7 +73,7 @@ export function App() {
     const { data, error } = await supabase
       .from('competitors')
       .select('*')
-      .eq('competition_id', 1)
+      .eq('competition_id', 2)
       .order('id', { ascending: true });
     if (data) {
       setCompetitors(data);
