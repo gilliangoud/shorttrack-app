@@ -36,7 +36,7 @@ export function App() {
     const { data, error } = await supabase
       .from('races')
       .select('*')
-      .eq('competition', 1)
+      .eq('competition', 2)
       .order('id', { ascending: true });
     if (data) {
       setPreviousRaces(
@@ -180,7 +180,7 @@ export function App() {
           Live UNOFFICIAL results
         </p>
         <p className="text-xl text-center align-middle hidden sm:block">
-          2023 Special Olympics BC Winter Games
+          2023 BC Shorttrack
         </p>
         <p className="text-left w-48 hidden lg:block">
           <RollingTime text="" />
