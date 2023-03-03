@@ -10,7 +10,8 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/reporter-website2",
-        "outputPath": "dist/apps/reporter-website2"
+        "outputPath": "dist/apps/reporter-website2",
+        "verbose": true
       },
       "configurations": {
         "development": {

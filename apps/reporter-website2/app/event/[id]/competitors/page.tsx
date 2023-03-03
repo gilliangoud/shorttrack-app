@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 export const revalidate = 30;
 
-async function page({ params: { id } }: { params: { id: string } }) {
+async function Competitors({ params: { id } }: { params: { id: string } }) {
   const { data: competition } = await supabase
     .from('competitions')
     .select()
@@ -73,4 +73,4 @@ async function page({ params: { id } }: { params: { id: string } }) {
   );
 }
 
-export default page;
+export default Competitors;

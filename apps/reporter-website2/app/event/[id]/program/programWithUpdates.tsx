@@ -2,7 +2,6 @@
 
 import { supabase } from '../../../../utils/supabase';
 import { useEffect, useState } from 'react';
-import { CheckCircleIcon, ChevronRightIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 function ProgramWithUpdates({ serverProgram, competitionId }) {
@@ -37,7 +36,7 @@ function ProgramWithUpdates({ serverProgram, competitionId }) {
     return () => {
       supabase.removeChannel(sub);
     };
-  }, [competitionId]);
+  }, [competitionId, program]);
 
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-md">

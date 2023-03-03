@@ -3,28 +3,17 @@ import { notFound } from 'next/navigation';
 import RacesWithUpdates from './racesWithUpdates';
 import {
   ArrowUpIcon,
-  BriefcaseIcon,
   CalendarIcon,
-  CheckIcon,
-  ChevronDownIcon,
   ChevronRightIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
-  MapPinIcon,
-  PencilIcon,
 } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export const revalidate = 30;
 
-export async function generateStaticParams({ params: { id } }: any) {
-  const { data: items } = await supabase.from('program_items').select('id');
+export async function generateStaticParams() {
+  const { data: items } = await supabase.from('program_items').select('sequence');
   return items.map((item) => ({
-    sequenceId: item.id.toString(),
+    sequenceId: item.sequence.toString(),
   }));
 }
 
@@ -41,7 +30,7 @@ async function page({
   const { data: races } = await supabase
     .from('races')
     .select()
-    .in('pat_id', programItem.race_ids)
+    .in('pat_id', programItem?.race_ids)
     .order('pat_id', { ascending: true });
   const { data: lanes } = await supabase
     .from('lanes')
@@ -117,7 +106,7 @@ async function page({
       </div>
       <RacesWithUpdates
         serverRaces={races}
-        raceIds={programItem.race_ids}
+        raceIds={programItem?.race_ids}
         lanes={lanes}
         competitors={competitors}
       />

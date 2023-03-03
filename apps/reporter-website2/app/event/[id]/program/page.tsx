@@ -3,12 +3,11 @@ import { notFound } from 'next/navigation';
 import ProgramWithUpdates from './programWithUpdates';
 import {
   CalendarIcon,
-  MapIcon,
   MapPinIcon,
   UsersIcon,
 } from '@heroicons/react/20/solid';
 import Link from 'next/link';
-import { ArrowUpIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 
 export const revalidate = 30;
 
