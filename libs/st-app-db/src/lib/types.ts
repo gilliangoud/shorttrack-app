@@ -208,6 +208,41 @@ export interface Database {
           website?: string | null
         }
       }
+      program_items: {
+        Row: {
+          competition_id: number | null
+          created_at: string
+          id: number
+          name: string | null
+          qualifying_positions: string | null
+          race_ids: number[] | null
+          sequence: number | null
+          time_start_expected: string | null
+          updated_at: string
+        }
+        Insert: {
+          competition_id?: number | null
+          created_at?: string
+          id?: number
+          name?: string | null
+          qualifying_positions?: string | null
+          race_ids?: number[] | null
+          sequence?: number | null
+          time_start_expected?: string | null
+          updated_at?: string
+        }
+        Update: {
+          competition_id?: number | null
+          created_at?: string
+          id?: number
+          name?: string | null
+          qualifying_positions?: string | null
+          race_ids?: number[] | null
+          sequence?: number | null
+          time_start_expected?: string | null
+          updated_at?: string
+        }
+      }
       races: {
         Row: {
           armed: boolean
@@ -216,6 +251,8 @@ export interface Database {
           distance: number
           id: number
           name: string | null
+          pat_id: number | null
+          program_name: string | null
           start_id: number | null
           track: number
           updated_at: string
@@ -227,6 +264,8 @@ export interface Database {
           distance?: number
           id?: number
           name?: string | null
+          pat_id?: number | null
+          program_name?: string | null
           start_id?: number | null
           track?: number
           updated_at?: string
@@ -238,6 +277,8 @@ export interface Database {
           distance?: number
           id?: number
           name?: string | null
+          pat_id?: number | null
+          program_name?: string | null
           start_id?: number | null
           track?: number
           updated_at?: string

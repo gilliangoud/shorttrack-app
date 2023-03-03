@@ -15,6 +15,16 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  redirects: async () => {
+    return [
+      {
+        source: '/',
+        basePath: false,
+        destination: '/event/3/program',
+        permanent: false,
+      },
+    ];
+  }
 };
 
 module.exports = withNx(nextConfig);

@@ -18,3 +18,20 @@ export function raceCompare(a, b) {
     return aLetter.localeCompare(bLetter);
   }
 }
+
+export function convertRoundToUsefulString(round) {
+  switch (round) {
+    case "Qual":
+      return "Qualification";
+    case "Fin":
+      return "Final";
+    case "Demi":
+      return "Semi-Final";
+    case "Quart":
+      return "Quarter-Final";
+    default:
+      return round;
+  }
+}
+
+

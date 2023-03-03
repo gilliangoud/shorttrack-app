@@ -33,5 +33,3 @@ appendFileSync(scheduleFile, JSON.stringify(races, null, 2))
 //     appendFileSync(scheduleFile, `${event},${event},${heat}\n`);
 //   })
 // });
-
-// function to compare race names 1A before 11B

@@ -1,4 +1,5 @@
 import './globals.css';
+import Header from './header';
 
 export default function RootLayout({
   children,
@@ -6,21 +7,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="[color-scheme:dark]">
-      <head />
-      <body className="overflow-y-scroll bg-gray-1100">
-        {/* <GlobalNav /> */}
-
-        <div className="lg:pl-72">
-          <div className="mx-auto max-w-4xl space-y-8 px-2 pt-20 lg:py-8 lg:px-8">
-
-            <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
-              <div className="rounded-lg bg-black p-3.5 lg:p-6">{children}</div>
-            </div>
-
-          </div>
-        </div>
-      </body>
+    <html lang="en" className="">
+      <head>
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+      </head>
+      <body className="overflow-y-scroll bg-slate-200">{children}</body>
     </html>
   );
 }
