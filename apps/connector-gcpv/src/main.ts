@@ -77,6 +77,7 @@ function updateProgramItems() {
         race_ids: [id] as number[],
       });
     }
+    // console.log('result', result);
 
     return result;
   }, []);
@@ -121,10 +122,9 @@ function updateProgramItems() {
 
       const deleteList = supabaseProgramItems.filter(
         (supabaseProgramItem) =>
-          supabaseProgramItem.sequence !== null &&
-          !racesBySequence.find(
-            (c) => c.pat_id === supabaseProgramItem.sequence
-          )
+          (!racesBySequence.find(
+            (c) => c.sequence === supabaseProgramItem.sequence
+          ) && supabaseProgramItem.sequence !== null)
       );
 
       // delete

@@ -2,7 +2,7 @@
 
 import { supabase } from '../../../../utils/supabase';
 import { useEffect, useState } from 'react';
-import { laneSort } from 'apps/reporter-website2/utils/sort';
+import { laneSort } from '../../../../utils/sort';
 
 function Realtime({
   serverRaces,
