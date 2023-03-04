@@ -41,7 +41,7 @@ const attachStart = async (raceId: number, startId: number) => {
       throw error;
     }
   } catch (error: any) {
-    alert(error.message);
+    console.error(error.message);
   }
 };
 
@@ -305,7 +305,7 @@ const addPassingToLane = async (
       throw error;
     }
   } catch (error: any) {
-    alert(error.message);
+    console.error(error.message);
   }
 };
 
@@ -331,7 +331,7 @@ const finish = async (raceId: number, laneId: number, time: string) => {
       throw error;
     }
   } catch (error: any) {
-    alert(error.message);
+    console.error(error.message);
   }
 };
 
@@ -370,7 +370,7 @@ const reCalculateFinishPositions = async (raceId: number) => {
             throw error;
           }
         } catch (error: any) {
-          alert(error.message);
+          console.error(error.message);
         }
     });
     console.log('Recalculated finish positions', raceId);
@@ -403,7 +403,7 @@ const finalizeRace = async (raceId: number) => {
       throw error;
     }
   } catch (error: any) {
-    alert(error.message);
+    console.error(error.message);
   }
 }
 

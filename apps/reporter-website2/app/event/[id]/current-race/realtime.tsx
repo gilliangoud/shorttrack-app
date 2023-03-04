@@ -37,7 +37,14 @@ function Realtime({
   }, [lanes]);
 
   useEffect(() => {
-    supabase
+    console.log('Running lanes useeffect')
+    console.log('lanes in effect', lanes)
+    fetchLanes();
+  }, [races]);
+
+  const fetchLanes = async () => {
+    console.log('fetching lanes')
+    await supabase
       .from('lanes')
       .select()
       .in(
@@ -47,11 +54,24 @@ function Realtime({
       .then(({ data }) => {
         setLanes(data);
       });
-  }, [races]);
+  }
+
 
   useEffect(() => {
     const sub = supabase
-      .channel('raceUpdatesLive')
+      .channel('*')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'starts'
+        },
+        (payload) => {
+          console.log('adding start', payload.new)
+          setStarts([payload.new, ...starts]);
+        }
+      )
       .on(
         'postgres_changes',
         {
@@ -61,15 +81,16 @@ function Realtime({
         },
         (payload) => {
           // if the race has gotten a startID, add it to the starts array
-          if (payload.new.startId && payload.old.startId === null) {
-            supabase
-              .from('starts')
-              .select()
-              .eq('id', payload.new.startId)
-              .then(({ data }) => {
-                setStarts([data, ...starts]);
-              });
-          }
+          // if (payload.new.startId && payload.old.startId === null) {
+          //   supabase
+          //     .from('starts')
+          //     .select()
+          //     .eq('id', payload.new.startId)
+          //     .then(({ data }) => {
+          //       console.log('adding start', data)
+          //       setStarts([data, ...starts]);
+          //     });
+          // }
           // add to array if not already there or update if already there
           if (races.findIndex((r) => r.id === payload.new.id) === -1) {
             setRaces([payload.new, ...races]);
@@ -79,6 +100,8 @@ function Realtime({
                 item.id === payload.new.id ? payload.new : item
               )
             );
+
+
           }
         }
       )
@@ -91,21 +114,21 @@ function Realtime({
         },
         (payload) => {
           // add to array if not already there or update if already there
-          if (
-            lanes.findIndex(
-              (r) => r.id === payload.new.id && r.raceId === payload.new.raceId
-            ) === -1
-          ) {
-            setLanes([payload.new, ...races]);
-          } else {
-            setLanes(
-              lanes.map((item) =>
-                item.id === payload.new.id && item.raceId === payload.new.raceId
-                  ? payload.new
-                  : item
-              )
-            );
-          }
+            // const laneIndex = lanes.findIndex((item) =>
+            // item.id === payload.new.id)
+            // console.log('updating lane', payload.new)
+            // if (laneIndex === -1) {
+            //   setLanes([payload.new, ...lanes]);
+            // } else {
+            //   setLanes(
+            //     lanes.map((item) =>
+            //       item.id === payload.new.id ? payload.new : item
+            //     )
+            // )};
+            setRaces((races) => {
+              const newRaces = [...races]
+              return newRaces
+            })
         }
       )
       .subscribe();
@@ -131,7 +154,7 @@ function Realtime({
     //       </div>
     //     ))}
     // </div>
-    <div className='overflow-hidden'>
+    <div className=''>
       {races
         .filter((r) => r.armed)
         .map(
@@ -148,7 +171,7 @@ function Realtime({
             track: number;
             updated_at: string;
           }) => (
-            <div className="bg-slate-900 py-10 h-screen w-screen overflow-hidden" key="race.id">
+            <div className="bg-slate-900 py-10 h-screen w-screen" key="race.id">
               <div className="px-4 sm:px-6 lg:px-8">
                 <div className="sm:flex sm:items-center">
                   <div className="sm:flex-auto">
@@ -159,7 +182,7 @@ function Realtime({
                   </div>
                 </div>
                 <div className="mt-8 flow-root mb-auto">
-                  <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                       <table className="min-w-full divide-y divide-gray-700">
                         <thead>
@@ -256,12 +279,13 @@ function Realtime({
                       date={
                         starts.find((x) => x.id === race.start_id)?.time || ''
                       }
-                      text="Started:"
+                      text="Started: "
                       className="w-40"
                     />
                   ) : (
                     ''
                   )}
+
                 </div>
               </div>
             </div>
