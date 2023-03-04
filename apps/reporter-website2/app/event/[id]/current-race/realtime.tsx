@@ -131,7 +131,7 @@ function Realtime({
     //       </div>
     //     ))}
     // </div>
-    <div>
+    <div className='overflow-hidden'>
       {races
         .filter((r) => r.armed)
         .map(
