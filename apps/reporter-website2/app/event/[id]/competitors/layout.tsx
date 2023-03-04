@@ -1,4 +1,4 @@
-import Header from "apps/reporter-website2/app/header";
+import Header from "../../../../app/header";
 
 export default function Layout({ children, params: { id } }: { children: React.ReactNode; params: { id: string } }) {
   return (

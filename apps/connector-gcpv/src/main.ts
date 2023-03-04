@@ -25,6 +25,7 @@ const syncLocation = process.env.PAT_FILE || '/media/meet.pat';
 const COMPETITION_ID = process.env.COMPETITION_ID || 3;
 const mdb = new MDBReader(readFileSync(syncLocation));
 const competition_no = getCompetitionId(mdb);
+console.log('competition_no', competition_no);
 
 const watcher = watch(syncLocation, { delay: 5000 });
 watcher.on('change', function (evt, name) {
@@ -51,10 +52,7 @@ function updateProgramItems() {
 
   const racesBySequence = races.reduce((result, race) => {
     const { sequence, programItemId, id, round } = race;
-    const existingEntry = result.find(
-      (entry) =>
-        entry.sequence === sequence
-    );
+    const existingEntry = result.find((entry) => entry.sequence === sequence);
 
     if (existingEntry) {
       existingEntry.race_ids.push(id as number);
@@ -118,13 +116,13 @@ function updateProgramItems() {
         { insert: [], update: [] }
       );
 
-      console.log('count', update.length, insert.length);
+      console.log('count programItems', update.length, insert.length);
 
       const deleteList = supabaseProgramItems.filter(
         (supabaseProgramItem) =>
-          (!racesBySequence.find(
+          !racesBySequence.find(
             (c) => c.sequence === supabaseProgramItem.sequence
-          ) && supabaseProgramItem.sequence !== null)
+          ) && supabaseProgramItem.sequence !== null
       );
 
       // delete
@@ -146,11 +144,13 @@ function updateProgramItems() {
 
       // insert
       await Promise.all(
-        insert.map(async (programItem) =>{
-            const { data, error } = await supabase.from('program_items').insert(programItem);
-            if (error) {
-              console.log(error);
-            }
+        insert.map(async (programItem) => {
+          const { data, error } = await supabase
+            .from('program_items')
+            .insert(programItem);
+          if (error) {
+            console.log(error);
+          }
         })
       ).catch((err) => console.log(err));
     });
@@ -212,6 +212,21 @@ function updateRaces() {
         supabaseRacePatIds.includes(mr.pat_id)
       );
 
+      console.log('count races', racesToUpdate.length, racesToInsert.length, racesToDelete.length);
+      // count all the lanes that are goin to be updated
+
+      const laneUpdateCount = racesToUpdate.reduce(
+        (acc, arr) => acc + arr.lanes.length,
+        0
+      );
+
+      const laneInsertCount = racesToInsert.reduce(
+        (acc, arr) => acc + arr.lanes.length,
+        0
+      );
+
+      console.log('count lanes', laneUpdateCount, laneInsertCount);
+
       racesToInsert.forEach(async (race) => {
         const { lanes, ...raceObj } = race;
         const { data, error } = await supabase
@@ -263,7 +278,10 @@ function updateRaces() {
           });
           supabase
             .from('lanes')
-            .upsert(lanesToInsert, { onConflict: 'id, raceId' });
+            .upsert(lanesToInsert, { onConflict: 'id, raceId' })
+            .then((res) => {
+              console.log(res);
+            })
         }
         if (error) {
           console.error(error);

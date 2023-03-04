@@ -2,7 +2,6 @@
 
 import { supabase } from '../../../../utils/supabase';
 import { useEffect, useState } from 'react';
-import { laneSort } from 'apps/reporter-website2/utils/sort';
 import Graph from './graph';
 
 function Realtime({
@@ -75,7 +74,7 @@ function Realtime({
         (payload) => {
           // add to array if not already there or update if already there
           if (lanes.findIndex((r) => r.id === payload.new.id && r.raceId === payload.new.raceId) === -1) {
-            setLanes([payload.new, ...races]);
+            setLanes([payload.new, ...lanes]);
           } else {
             setLanes(
               lanes.map((item) =>
