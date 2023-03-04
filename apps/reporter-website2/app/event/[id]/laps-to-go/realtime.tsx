@@ -11,9 +11,13 @@ function Realtime({
   serverRaces: any[];
   serverLanes: any[];
 }) {
-  const [races, setRaces] = useState([...serverRaces]);
-  const [lanes, setLanes] = useState([...serverLanes]);
+  const [races, setRaces] = useState([]);
+  const [lanes, setLanes] = useState([]);
   const [competitors, setCompetitors] = useState([]);
+
+  useEffect(() => {
+    setRaces(serverRaces);
+  }, [serverRaces]);
 
   useEffect(() => {
     supabase
