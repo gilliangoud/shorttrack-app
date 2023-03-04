@@ -42,7 +42,7 @@ export default function Graph({race, lanes, competitors}) {
     responsive: true,
     scales: {
       x: {
-        stacked: true,
+        stacked: false,
         ticks: {
           font: {
             size: 32
@@ -50,10 +50,12 @@ export default function Graph({race, lanes, competitors}) {
         }
       },
       y: {
-        stacked: true,
+        stacked: false,
         ticks: {
           beginAtZero: true,
           stepSize: 1,
+          min: 0,
+          max: 13,
         },
       },
     },
@@ -63,7 +65,7 @@ export default function Graph({race, lanes, competitors}) {
     const laness = lanes.filter((c) => c.raceId === race.id)
     .sort((a,b) => a.id - b.id)
     const laneids = laness.map((l) => l.competitorId)
-    const competitorids = competitors.filter((c) => laneids.includes(c.id)).map((c) => c.helmet_id)
+    const competitorids = lanes.map((l) => competitors.find((c) => c.id === l.competitorId)?.helmet_id)
     return competitorids
   }
 
@@ -72,16 +74,19 @@ export default function Graph({race, lanes, competitors}) {
     const colors = ['rgb(255, 99, 132)', 'rgb(75, 192, 192)', 'rgb(255, 205, 86)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(201, 203, 207)']
     const graphdata = []
     for (let i = 1; i <= laps; i++) {
-      graphdata.push({
-        label: `Lap ${i}`,
-        data: lanes.filter((c) => c.raceId === race.id)
+      const data = []
+      lanes.filter((c) => c.raceId === race.id)
         .sort((a,b) => a.id - b.id).map((lane) => {
           // const comp = competitors.find((c) => c.id === lane.competitorId)
-          return lane.passings.length - i >= 0 ? 1 : 0
-        }),
+          return lane.passings?.length >= i ? 1 : 0
+        })
+      graphdata.push({
+        label: `Lap ${i}`,
+        data: data,
         backgroundColor: colors[(i-1) % 5],
       })
     }
+    console.log(graphdata)
     return graphdata
   }
 

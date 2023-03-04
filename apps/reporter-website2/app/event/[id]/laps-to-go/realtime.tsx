@@ -73,12 +73,18 @@ function Realtime({
         },
         (payload) => {
           // add to array if not already there or update if already there
-          if (lanes.findIndex((r) => r.id === payload.new.id && r.raceId === payload.new.raceId) === -1) {
+          if (
+            lanes.findIndex(
+              (r) => r.id === payload.new.id && r.raceId === payload.new.raceId
+            ) === -1
+          ) {
             setLanes([payload.new, ...lanes]);
           } else {
             setLanes(
               lanes.map((item) =>
-                item.id === payload.new.id && item.raceId === payload.new.raceId ? payload.new : item
+                item.id === payload.new.id && item.raceId === payload.new.raceId
+                  ? payload.new
+                  : item
               )
             );
           }
@@ -101,8 +107,23 @@ function Realtime({
       {races
         .filter((r) => r.armed)
         .map((race) => (
-          <div key={race.id}>
-              <Graph race={race} lanes={lanes} competitors={competitors} />
+          <div key={race.id} className="text-9xl">
+            {/* <Graph race={race} lanes={lanes} competitors={competitors} /> */}
+            {lanes
+              .filter((c) => c.raceId === race.id)
+              .sort((a, b) => a.id - b.id)
+              .map((lane) => (
+                <>
+                  <h1 className="text-9xl" key={lane.id}>
+                    Skater{' '}
+                    {
+                      competitors.find((c) => c.id === lane.competitorId)
+                        ?.helmet_id
+                    }
+                    : {lane.passings.length} Laps
+                  </h1>
+                </>
+              ))}
           </div>
         ))}
     </div>
