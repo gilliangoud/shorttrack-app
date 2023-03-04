@@ -329,8 +329,8 @@ const sortLanes = (a, b) => {
   }
 
   // If the number of passings are equal, sort by earliest occurring passing time
-  const aTime = a.passings.length > 0 ? new Date(a.passings[0]) : null;
-  const bTime = b.passings.length > 0 ? new Date(b.passings[0]) : null;
+  const aTime = a.passings.length > 0 ? new Date(a.passings[a.passings.length -1]) : null;
+  const bTime = b.passings.length > 0 ? new Date(b.passings[b.passings.length -1]) : null;
   if (aTime && bTime) {
     return aTime.getTime() - bTime.getTime();
   } else if (aTime) {
