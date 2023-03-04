@@ -148,7 +148,7 @@ function Realtime({
             track: number;
             updated_at: string;
           }) => (
-            <div className="bg-slate-900 py-10 h-screen w-screen" key="race.id">
+            <div className="bg-slate-900 py-10 h-screen w-screen overflow-hidden" key="race.id">
               <div className="px-4 sm:px-6 lg:px-8">
                 <div className="sm:flex sm:items-center">
                   <div className="sm:flex-auto">
