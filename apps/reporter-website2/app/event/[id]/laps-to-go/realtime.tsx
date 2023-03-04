@@ -102,8 +102,7 @@ function Realtime({
         .filter((r) => r.armed)
         .map((race) => (
           <div key={race.id}>
-              <Graph race={race} lanes={lanes.filter((c) => c.raceId === race.id)
-              .sort((a,b) => a.id - b.id)} competitors={competitors} />
+              <Graph race={race} lanes={lanes} competitors={competitors} />
           </div>
         ))}
     </div>

@@ -60,7 +60,9 @@ export default function Graph({race, lanes, competitors}) {
   };
 
   const createLabels = () => {
-    const laneids = lanes.map((l) => l.competitorId)
+    const laness = lanes.filter((c) => c.raceId === race.id)
+    .sort((a,b) => a.id - b.id)
+    const laneids = laness.map((l) => l.competitorId)
     const competitorids = competitors.filter((c) => laneids.includes(c.id)).map((c) => c.helmet_id)
     return competitorids
   }
@@ -72,8 +74,9 @@ export default function Graph({race, lanes, competitors}) {
     for (let i = 1; i <= laps; i++) {
       graphdata.push({
         label: `Lap ${i}`,
-        data: lanes.map((lane) => {
-          const comp = competitors.find((c) => c.id === lane.competitorId)
+        data: lanes.filter((c) => c.raceId === race.id)
+        .sort((a,b) => a.id - b.id).map((lane) => {
+          // const comp = competitors.find((c) => c.id === lane.competitorId)
           return lane.passings.length - i >= 0 ? 1 : 0
         }),
         backgroundColor: colors[(i-1) % 5],
