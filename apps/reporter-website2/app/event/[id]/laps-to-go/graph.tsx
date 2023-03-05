@@ -56,6 +56,9 @@ export default function Graph({race, lanes, competitors}) {
           stepSize: 1,
           min: 0,
           max: 13,
+          font: {
+            size: 56
+          }
         },
       },
     },
