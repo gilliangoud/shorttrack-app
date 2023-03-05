@@ -25,11 +25,11 @@ const TimeSinceRolling = (props: Props) => {
   }, 1);
 
   return (
-    <p className={props.className}>
+    <div className={props.className}>
       {props.text} {days > 0 ? days + ':' : null}
       {hours > 0 ? hours + ':' : null}
       {minutes}:{seconds}.{milliseconds}
-    </p>
+    </div>
   );
 };
 

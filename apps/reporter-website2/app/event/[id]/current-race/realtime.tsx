@@ -176,7 +176,18 @@ function Realtime({
                 <div className="sm:flex sm:items-center">
                   <div className="sm:flex-auto">
                     <h1 className="text-7xl font-semibold leading-6 text-white text-center">
-                      {race.name}: {race.program_name}
+                    {race.start_id ?
+                    <TimeSinceRolling
+                      date={
+                        starts.find((x) => x.id === race.start_id)?.time || ''
+                      }
+                      text=""
+                      className="text-left"
+                    />
+                   : (
+                    ''
+                  )}
+                  {race.name}: {race.program_name}
                     </h1>
                     <p className="mt-2 text-4xl text-gray-300"></p>
                   </div>
@@ -273,7 +284,7 @@ function Realtime({
                     </div>
                   </div>
                 </div>
-                <div className="text-center text-white text-7xl mt-8">
+                {/* <div className="text-center text-white text-7xl mt-8">
                   {race.start_id ? (
                     <TimeSinceRolling
                       date={
@@ -286,7 +297,7 @@ function Realtime({
                     ''
                   )}
 
-                </div>
+                </div> */}
               </div>
             </div>
           )

@@ -42,7 +42,7 @@ export default function Graph({race, lanes, competitors}) {
     responsive: true,
     scales: {
       x: {
-        stacked: false,
+        stacked: true,
         ticks: {
           font: {
             size: 32
@@ -50,7 +50,7 @@ export default function Graph({race, lanes, competitors}) {
         }
       },
       y: {
-        stacked: false,
+        stacked: true,
         ticks: {
           beginAtZero: true,
           stepSize: 1,
@@ -74,7 +74,7 @@ export default function Graph({race, lanes, competitors}) {
     const colors = ['rgb(255, 99, 132)', 'rgb(75, 192, 192)', 'rgb(255, 205, 86)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)', 'rgb(201, 203, 207)']
     const graphdata = []
     for (let i = 1; i <= laps; i++) {
-      const data = []
+      const data =
       lanes.filter((c) => c.raceId === race.id)
         .sort((a,b) => a.id - b.id).map((lane) => {
           // const comp = competitors.find((c) => c.id === lane.competitorId)
@@ -92,7 +92,7 @@ export default function Graph({race, lanes, competitors}) {
 
   useEffect(() => {
     setData({labels: createLabels(), datasets: createGraphdata()})
-  }, [race, lanes, competitors])
+  }, [race, lanes])
 
 
   return (

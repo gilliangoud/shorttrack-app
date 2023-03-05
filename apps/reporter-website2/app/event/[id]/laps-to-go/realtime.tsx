@@ -101,8 +101,9 @@ function Realtime({
         .filter((r) => r.armed)
         .map((race) => (
           <div key={race.id} className="text-9xl">
-            {/* <Graph race={race} lanes={lanes} competitors={competitors} /> */}
-            {lanes
+            <Graph race={race} lanes={lanes.filter((c) => c.raceId === race.id)
+              .sort((a, b) => a.id - b.id)} competitors={competitors} />
+            {/* {lanes
               .filter((c) => c.raceId === race.id)
               .sort((a, b) => a.id - b.id)
               .map((lane) => (
@@ -116,7 +117,7 @@ function Realtime({
                     : {lane.passings.length} Passings
                   </h1>
                 </>
-              ))}
+              ))} */}
           </div>
         ))}
     </div>

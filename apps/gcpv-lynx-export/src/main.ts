@@ -60,7 +60,7 @@ function execute () {
 
     appendFileSync(
       eventFile,
-      `${event},${event},${heat},${race.name} ${programItem.group} ${programItem.length}m ${programItem.track}m\n`
+      `${race.name},1,01,${race.name} ${programItem.group} ${programItem.length}m ${programItem.track}m\n`
     );
 
     // for every lane in the race print one line with the lane info

@@ -280,7 +280,7 @@ function updateRaces() {
             .from('lanes')
             .upsert(lanesToInsert, { onConflict: 'id, raceId' })
             .then((res) => {
-              console.log(res);
+              res.error ? console.log(res.error): null;
             })
         }
         if (error) {
