@@ -25,6 +25,21 @@ function Realtime({
 
   useEffect(() => {
     supabase
+      .from('races')
+      .select()
+      .match({ armed: true })
+      .then(({ data }) => {
+        setRaces(data);
+        if (data.length > 0 && data[0]?.start_id) {
+          supabase.from('starts').select().match({ id: data[0].start_id }).then(({ data }) => {
+            setStarts(data);
+          });
+        }
+      });
+  }, [serverRaces]);
+
+  useEffect(() => {
+    supabase
       .from('competitors')
       .select()
       .in(

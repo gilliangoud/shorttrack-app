@@ -22,7 +22,7 @@ async function page({params: {id}}: { params: {id: string}}) {
 
   return (
     <div className="flex items-center justify-between p-4 bg-black h-screen w-screen">
-      <Realtime serverRaces={activeRaces} serverLanes={lanes} />
+      <Realtime serverRaces={[]} serverLanes={[]} />
     </div>
   )
 }
