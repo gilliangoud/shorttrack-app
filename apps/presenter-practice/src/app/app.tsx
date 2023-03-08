@@ -154,30 +154,7 @@ export function App() {
     };
   }, []);
 
-  const addPassing = () => {
-    setPassings((prev) => {
-      console.log('passings changed', prev);
-      return [
-        {
-          msg: "PASSING",
-          decoder_id: "042D84",
-          passing_number: 24066,
-          rtc_time: "2023-03-07 19:40:26.603",
-          time: "2023-03-07 20:55:26.603",
-          strength: 128,
-          hits: 65,
-          low_battery: false,
-          resend: false,
-          modified: false,
-          gps_locked: false,
-          tran_code: "TZ-02445",
-          sport: 2,
-        } as unknown as Database['public']['Tables']['passings']['Row']
-        ,...prev];
-    });}
-
   return (
-    <>
       <ul className="h-screen bg-gray-900 space-y-2 overflow-y-scroll flex flex-wrap justify-evenly">
         {skaters
           .filter((s) => s.lap_time !== '0.00')
@@ -199,14 +176,6 @@ export function App() {
             );
           })}
       </ul>
-      <button
-        onClick={() => {
-          addPassing();
-        }}
-      >
-        button
-      </button>
-    </>
   );
 }
 
