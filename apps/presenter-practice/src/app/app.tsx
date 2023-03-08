@@ -155,7 +155,7 @@ export function App() {
   }, []);
 
   return (
-      <ul className="h-screen bg-gray-900 space-y-2 overflow-y-scroll flex flex-wrap justify-evenly">
+      <ul className="h-screen bg-gray-900 space-y-2 overflow-y-auto flex flex-wrap justify-evenly">
         {skaters
           .filter((s) => s.lap_time !== '0.00')
           .map((item) => {
