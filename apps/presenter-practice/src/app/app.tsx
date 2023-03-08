@@ -3,8 +3,8 @@ import { Database } from '@shorttrack-app/st-app-db';
 import { useEffect, useState } from 'react';
 import { atom, useAtom } from 'jotai';
 
-const projectURL = import.meta.env.VITE_PUBLIC_SUPABASE_URL;
-const projectKey = import.meta.env.VITE_PUBLIC_SUPABASE_KEY;
+const projectURL = import.meta.env.VITE_PUBLIC_SUPABASE_URL || 'https://wuhnbxqejdishfovgtze.supabase.co';
+const projectKey = import.meta.env.VITE_PUBLIC_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1aG5ieHFlamRpc2hmb3ZndHplIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njg4MDM5NzgsImV4cCI6MTk4NDM3OTk3OH0.mXqeA9zlNWTQbVYFlyYbYdCNR8iPSMu86vGZz3nFjso';
 
 const transpondersAtom = atom<
   Database['public']['Tables']['transponders']['Row'][]
