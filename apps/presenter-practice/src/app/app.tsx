@@ -155,7 +155,7 @@ export function App() {
   }, []);
 
   return (
-      <ul className="h-screen bg-gray-900 space-y-2 overflow-y-auto flex flex-wrap justify-evenly">
+      <ul className="h-screen bg-gray-900 space-y-2 overflow-auto flex flex-wrap justify-evenly">
         {skaters
           .filter((s) => s.lap_time !== '0.00')
           .map((item) => {
@@ -168,7 +168,7 @@ export function App() {
                   <p className="flex-1 text-clip text-5xl object-fit object-scale-down self-center font-medium tracking-tight text-gray-300">
                     {item.name}
                   </p>
-                  <p className="self-center text-[10em] font-bold tracking-tight text-white text-right">
+                  <p className="self-center text-[11em] font-bold tracking-tight text-white text-right">
                     {item.lap_time}
                   </p>
                 </div>
